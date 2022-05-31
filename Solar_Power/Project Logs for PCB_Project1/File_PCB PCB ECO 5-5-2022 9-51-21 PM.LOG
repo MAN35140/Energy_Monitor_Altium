@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=J2 Old Footprint=KF2-7.62 New Footprint=KF2-5.08
+Change Component Footprint: Designator=J3 Old Footprint=KF3-7.62 New Footprint=KF3-5.08
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component Q1 IRFZ44
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component Q2 IRFZ44
+Added Room: Name=File_Nguyen_Ly

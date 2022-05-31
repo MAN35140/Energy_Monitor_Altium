@@ -1,0 +1,807 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD18\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">4/17/2022</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">3:23:43 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc" class="file"><acronym title="D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc">D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">149</td></tr>
+</table>
+</td>
+</table><a name="IDC02NYILA0KOSNUL1PWZPLLF01CX50BAX2ATCQTLQKYHS2ZRGVBMN"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGURDZIZFZP2UCTDLFHAXFO3BYPFCQDBLSZ0F22PEXZPKNJDFES1D">Clearance Constraint (Gap=20mil) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID20323WP5KVPSJFO2C3IOIHWZBEENVJEEMZ2RACNDLPK453AP0TRI">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIIMFI5OSX0RWKL33MCTRHNVRRE5CHASEF1LPJHLLBCUAPD0WEAHH">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKT3NIF5PY5YGCANTWQWO5X2EHOHXKYKRCQAFF4HM41GMIM5KY3QF">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDPIG2SEF4RMGACMK1QURAPUZKQNKIZZEFL3CHMXN0UHM1AIIM1JAM">Width Constraint (Min=20mil) (Max=20mil) (Preferred=20mil) (All)</a></td>
+<td class="column2">11</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLN1ARBSCXJJXTQEMTEITSOY1F2OYHPSEWZCUPCYGF2QPZXLNPQK">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAOJDGJRJUWXRL303TVIQHHTTUJFUL3NXSD5PTXML50QWJDVOFOAF">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUTT2FYKDS5MCN5JGOUZ1AEZACHX1SLI5BPGMIEK4IEXOEFI3HYTG">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDUYBWRAAXVTH2I32OEQV0FQ2UIILIDMJCGVJZ30BBCDXA3JADRAUN">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDYOFHCIHMXFUUMFALWYSGO4BSDBSIKRDLU1F5IZBWUDNWREVVDDBJ">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">101</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNVLC1YTUBAEZKOAZMN2KRI4QVFQMNQKMJGMMSEOFAMZ004RBF1FJ">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">7</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID00NSHCKQTQSMCJ0LJFDMWPKFF1HLDCM3WHT3XLSB3TGCRHTEGZP">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRJLODZWTMOA3EMSYPIJVP1YKPHO5HVUWXW2BVLCZIHLBOVT2OXUC">Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY'))</a></td>
+<td class="column2">20</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3DCR044GBBMQIMGD5LJ5OAKQPJLFJCNGNNQMDTO0F2Q1HLIWFT1">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">149</td>
+</tr>
+</table><br><a name="IDGURDZIZFZP2UCTDLFHAXFO3BYPFCQDBLSZ0F22PEXZPKNJDFES1D"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=20mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3752.833mil|Location2.X=3785.037mil|Location1.Y=3922.833mil|Location2.Y=3937.167mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3752.833mil|Location2.X=3785.037mil|Location1.Y=3922.833mil|Location2.Y=3937.167mil|Absolute=True">Clearance Constraint: (Collision &lt; 20mil) Between Pad IC1-4(3765mil,3965.827mil) on Top Layer And Via (3760mil,3905mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID20323WP5KVPSJFO2C3IOIHWZBEENVJEEMZ2RACNDLPK453AP0TRI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3736.638mil|Location2.X=3783.362mil|Location1.Y=3900.99mil|Location2.Y=3947.714mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3736.638mil|Location2.X=3783.362mil|Location1.Y=3900.99mil|Location2.Y=3947.714mil|Absolute=True">Short-Circuit Constraint: Between Pad IC1-4(3765mil,3965.827mil) on Top Layer And Via (3760mil,3905mil) from Top Layer to Bottom Layer Location : [X = 3760mil][Y = 3924.352mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDPIG2SEF4RMGACMK1QURAPUZKQNKIZZEFL3CHMXN0UHM1AIIM1JAM"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Width Constraint (Min=20mil) (Max=20mil) (Preferred=20mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3633.5mil|Location2.X=3676.5mil|Location1.Y=4341mil|Location2.Y=4384mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3633.5mil|Location2.X=3676.5mil|Location1.Y=4341mil|Location2.Y=4384mil|Absolute=True">Width Constraint: Track (3655mil,4320mil)(3655mil,4405mil) on Bottom Layer Actual Width = 40mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3641mil|Location2.X=3686.508mil|Location1.Y=4291mil|Location2.Y=4334mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3641mil|Location2.X=3686.508mil|Location1.Y=4291mil|Location2.Y=4334mil|Absolute=True">Width Constraint: Track (3655mil,4320mil)(3670mil,4305mil) on Bottom Layer Actual Width = 40mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.5mil|Location2.X=3691.5mil|Location1.Y=4158.5mil|Location2.Y=4201.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.5mil|Location2.X=3691.5mil|Location1.Y=4158.5mil|Location2.Y=4201.5mil|Absolute=True">Width Constraint: Track (3670mil,4140mil)(3670mil,4220mil) on Bottom Layer Actual Width = 40mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.5mil|Location2.X=3691.5mil|Location1.Y=4241mil|Location2.Y=4284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.5mil|Location2.X=3691.5mil|Location1.Y=4241mil|Location2.Y=4284mil|Absolute=True">Width Constraint: Track (3670mil,4220mil)(3670mil,4305mil) on Bottom Layer Actual Width = 40mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3716mil|Location2.X=3760.49mil|Location1.Y=3888.5mil|Location2.Y=3921.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3716mil|Location2.X=3760.49mil|Location1.Y=3888.5mil|Location2.Y=3921.5mil|Absolute=True">Width Constraint: Track (3705mil,3905mil)(3760mil,3905mil) on Bottom Layer Actual Width = 30mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3743.5mil|Location2.X=3786.5mil|Location1.Y=4043.5mil|Location2.Y=4086.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3743.5mil|Location2.X=3786.5mil|Location1.Y=4043.5mil|Location2.Y=4086.5mil|Absolute=True">Width Constraint: Track (3765mil,3910mil)(3765mil,4220mil) on Bottom Layer Actual Width = 40mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3751mil|Location2.X=3791.508mil|Location1.Y=3891mil|Location2.Y=3924mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3751mil|Location2.X=3791.508mil|Location1.Y=3891mil|Location2.Y=3924mil|Absolute=True">Width Constraint: Track (3765mil,3910mil)(3770mil,3905mil) on Bottom Layer Actual Width = 30mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3743.5mil|Location2.X=3786.5mil|Location1.Y=4238.5mil|Location2.Y=4281.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3743.5mil|Location2.X=3786.5mil|Location1.Y=4238.5mil|Location2.Y=4281.5mil|Absolute=True">Width Constraint: Track (3765mil,4220mil)(3765mil,4300mil) on Bottom Layer Actual Width = 40mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3901mil|Location2.X=3945.49mil|Location1.Y=3888.5mil|Location2.Y=3921.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3901mil|Location2.X=3945.49mil|Location1.Y=3888.5mil|Location2.Y=3921.5mil|Absolute=True">Width Constraint: Track (3770mil,3905mil)(4065mil,3905mil) on Bottom Layer Actual Width = 30mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3833.5mil|Location2.X=3876.5mil|Location1.Y=4158.5mil|Location2.Y=4201.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3833.5mil|Location2.X=3876.5mil|Location1.Y=4158.5mil|Location2.Y=4201.5mil|Absolute=True">Width Constraint: Track (3855mil,4140mil)(3855mil,4220mil) on Bottom Layer Actual Width = 40mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3833.5mil|Location2.X=3876.5mil|Location1.Y=4291mil|Location2.Y=4334mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3833.5mil|Location2.X=3876.5mil|Location1.Y=4291mil|Location2.Y=4334mil|Absolute=True">Width Constraint: Track (3855mil,4220mil)(3855mil,4405mil) on Bottom Layer Actual Width = 40mil, Target Width = 20mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDAOJDGJRJUWXRL303TVIQHHTTUJFUL3NXSD5PTXML50QWJDVOFOAF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2451.383mil|Location2.X=2578.617mil|Location1.Y=971.383mil|Location2.Y=1098.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2451.383mil|Location2.X=2578.617mil|Location1.Y=971.383mil|Location2.Y=1098.617mil|Absolute=True">Hole Size Constraint: (125.984mil &gt; 100mil) Pad Free-2(2515mil,1035mil) on Multi-Layer Actual Hole Size = 125.984mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2451.383mil|Location2.X=2578.617mil|Location1.Y=4771.383mil|Location2.Y=4898.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2451.383mil|Location2.X=2578.617mil|Location1.Y=4771.383mil|Location2.Y=4898.617mil|Absolute=True">Hole Size Constraint: (125.984mil &gt; 100mil) Pad Free-2(2515mil,4835mil) on Multi-Layer Actual Hole Size = 125.984mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4911.383mil|Location2.X=5038.617mil|Location1.Y=971.383mil|Location2.Y=1098.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4911.383mil|Location2.X=5038.617mil|Location1.Y=971.383mil|Location2.Y=1098.617mil|Absolute=True">Hole Size Constraint: (125.984mil &gt; 100mil) Pad Free-2(4975mil,1035mil) on Multi-Layer Actual Hole Size = 125.984mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4911.383mil|Location2.X=5038.617mil|Location1.Y=4771.383mil|Location2.Y=4898.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4911.383mil|Location2.X=5038.617mil|Location1.Y=4771.383mil|Location2.Y=4898.617mil|Absolute=True">Hole Size Constraint: (125.984mil &gt; 100mil) Pad Free-2(4975mil,4835mil) on Multi-Layer Actual Hole Size = 125.984mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDYOFHCIHMXFUUMFALWYSGO4BSDBSIKRDLU1F5IZBWUDNWREVVDDBJ"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2671.381mil|Location2.X=2682.631mil|Location1.Y=3304.062mil|Location2.Y=3315.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2671.381mil|Location2.X=2682.631mil|Location1.Y=3304.062mil|Location2.Y=3315.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (2706.434mil,3330mil) on Bottom Overlay And Pad C1-1(2706.434mil,3330mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2671.381mil|Location2.X=2682.631mil|Location1.Y=3504.062mil|Location2.Y=3515.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2671.381mil|Location2.X=2682.631mil|Location1.Y=3504.062mil|Location2.Y=3515.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (2706.434mil,3530mil) on Bottom Overlay And Pad C6-1(2706.434mil,3530mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.76mil|Location2.X=2808.01mil|Location1.Y=3288.213mil|Location2.Y=3299.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.76mil|Location2.X=2808.01mil|Location1.Y=3288.213mil|Location2.Y=3299.463mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.684mil &lt; 10mil) Between Arc (2807.434mil,3330mil) on Bottom Overlay And Pad C1-2(2806.434mil,3330mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [5.684mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.76mil|Location2.X=2808.01mil|Location1.Y=3488.213mil|Location2.Y=3499.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.76mil|Location2.X=2808.01mil|Location1.Y=3488.213mil|Location2.Y=3499.463mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.684mil &lt; 10mil) Between Arc (2807.434mil,3530mil) on Bottom Overlay And Pad C6-2(2806.434mil,3530mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [5.684mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2849.947mil|Location2.X=2861.197mil|Location1.Y=4294.062mil|Location2.Y=4305.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2849.947mil|Location2.X=2861.197mil|Location1.Y=4294.062mil|Location2.Y=4305.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (2885mil,4320mil) on Bottom Overlay And Pad C7-1(2885mil,4320mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3074.906mil|Location2.X=3086.156mil|Location1.Y=4278.31mil|Location2.Y=4289.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3074.906mil|Location2.X=3086.156mil|Location1.Y=4278.31mil|Location2.Y=4289.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Arc (3085mil,4320mil) on Bottom Overlay And Pad C7-2(3085mil,4320mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3619.947mil|Location2.X=3631.197mil|Location1.Y=4379.062mil|Location2.Y=4390.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3619.947mil|Location2.X=3631.197mil|Location1.Y=4379.062mil|Location2.Y=4390.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (3655mil,4405mil) on Bottom Overlay And Pad C4-2(3655mil,4405mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3659.028mil|Location2.X=3670.278mil|Location1.Y=4587.162mil|Location2.Y=4598.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3659.028mil|Location2.X=3670.278mil|Location1.Y=4587.162mil|Location2.Y=4598.412mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.814mil &lt; 10mil) Between Arc (3746.583mil,4643mil) on Bottom Overlay And Pad C2-1(3700mil,4643mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0.814mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3825.417mil|Location2.X=3836.667mil|Location1.Y=4675.542mil|Location2.Y=4686.792mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3825.417mil|Location2.X=3836.667mil|Location1.Y=4675.542mil|Location2.Y=4686.792mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.634mil &lt; 10mil) Between Arc (3746.583mil,4643mil) on Bottom Overlay And Pad C2-2(3800mil,4643mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [7.634mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3844.906mil|Location2.X=3856.156mil|Location1.Y=4363.31mil|Location2.Y=4374.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3844.906mil|Location2.X=3856.156mil|Location1.Y=4363.31mil|Location2.Y=4374.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Arc (3855mil,4405mil) on Bottom Overlay And Pad C4-1(3855mil,4405mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4434.947mil|Location2.X=4446.197mil|Location1.Y=1984.062mil|Location2.Y=1995.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4434.947mil|Location2.X=4446.197mil|Location1.Y=1984.062mil|Location2.Y=1995.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (4470mil,2010mil) on Bottom Overlay And Pad C8-1(4470mil,2010mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4436.227mil|Location2.X=4447.477mil|Location1.Y=2226.428mil|Location2.Y=2237.678mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4436.227mil|Location2.X=4447.477mil|Location1.Y=2226.428mil|Location2.Y=2237.678mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (4470mil,2210mil) on Bottom Overlay And Pad C8-2(4470mil,2210mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4469.947mil|Location2.X=4481.197mil|Location1.Y=3709.062mil|Location2.Y=3720.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4469.947mil|Location2.X=4481.197mil|Location1.Y=3709.062mil|Location2.Y=3720.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (4505mil,3735mil) on Bottom Overlay And Pad C5-2(4505mil,3735mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4499.028mil|Location2.X=4510.278mil|Location1.Y=3934.162mil|Location2.Y=3945.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4499.028mil|Location2.X=4510.278mil|Location1.Y=3934.162mil|Location2.Y=3945.412mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.814mil &lt; 10mil) Between Arc (4586.583mil,3990mil) on Bottom Overlay And Pad C3-1(4540mil,3990mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0.814mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4665.417mil|Location2.X=4676.667mil|Location1.Y=4022.542mil|Location2.Y=4033.792mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4665.417mil|Location2.X=4676.667mil|Location1.Y=4022.542mil|Location2.Y=4033.792mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.634mil &lt; 10mil) Between Arc (4586.583mil,3990mil) on Bottom Overlay And Pad C3-2(4640mil,3990mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [7.634mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4694.906mil|Location2.X=4706.156mil|Location1.Y=3693.31mil|Location2.Y=3704.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4694.906mil|Location2.X=4706.156mil|Location1.Y=3693.31mil|Location2.Y=3704.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Arc (4705mil,3735mil) on Bottom Overlay And Pad C5-1(4705mil,3735mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2696.34mil|Location2.X=2707.59mil|Location1.Y=3288.31mil|Location2.Y=3299.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2696.34mil|Location2.X=2707.59mil|Location1.Y=3288.31mil|Location2.Y=3299.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Pad C1-1(2706.434mil,3330mil) on Multi-Layer And Track (2706.434mil,3290mil)(2806.434mil,3290mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2694.12mil|Location2.X=2705.37mil|Location1.Y=3360.157mil|Location2.Y=3371.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2694.12mil|Location2.X=2705.37mil|Location1.Y=3360.157mil|Location2.Y=3371.407mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.816mil &lt; 10mil) Between Pad C1-1(2706.434mil,3330mil) on Multi-Layer And Track (2706.434mil,3370mil)(2806.434mil,3370mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.816mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.438mil|Location2.X=2797.688mil|Location1.Y=3290.159mil|Location2.Y=3301.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.438mil|Location2.X=2797.688mil|Location1.Y=3290.159mil|Location2.Y=3301.409mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.569mil &lt; 10mil) Between Pad C1-2(2806.434mil,3330mil) on Multi-Layer And Track (2706.434mil,3290mil)(2806.434mil,3290mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.569mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2780.918mil|Location2.X=2792.168mil|Location1.Y=3357.034mil|Location2.Y=3368.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2780.918mil|Location2.X=2792.168mil|Location1.Y=3357.034mil|Location2.Y=3368.284mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.682mil &lt; 10mil) Between Pad C1-2(2806.434mil,3330mil) on Multi-Layer And Track (2706.434mil,3370mil)(2806.434mil,3370mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3684.375mil|Location2.X=3695.625mil|Location1.Y=4584.125mil|Location2.Y=4595.375mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3684.375mil|Location2.X=3695.625mil|Location1.Y=4584.125mil|Location2.Y=4595.375mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.5mil &lt; 10mil) Between Pad C2-1(3700mil,4643mil) on Multi-Layer And Track (3690mil,4583mil)(3710mil,4583mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [6.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.167mil|Location2.X=3703.833mil|Location1.Y=4589.167mil|Location2.Y=4596.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.167mil|Location2.X=3703.833mil|Location1.Y=4589.167mil|Location2.Y=4596.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad C2-1(3700mil,4643mil) on Multi-Layer And Track (3700mil,4573mil)(3700mil,4593mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3791.36mil|Location2.X=3802.61mil|Location1.Y=4599.448mil|Location2.Y=4610.698mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3791.36mil|Location2.X=3802.61mil|Location1.Y=4599.448mil|Location2.Y=4610.698mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.032mil &lt; 10mil) Between Pad C2-2(3800mil,4643mil) on Multi-Layer And Region (0 hole(s)) Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [6.032mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4524.375mil|Location2.X=4535.625mil|Location1.Y=3931.125mil|Location2.Y=3942.375mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4524.375mil|Location2.X=4535.625mil|Location1.Y=3931.125mil|Location2.Y=3942.375mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.5mil &lt; 10mil) Between Pad C3-1(4540mil,3990mil) on Multi-Layer And Track (4530mil,3930mil)(4550mil,3930mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [6.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4536.167mil|Location2.X=4543.833mil|Location1.Y=3936.167mil|Location2.Y=3943.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4536.167mil|Location2.X=4543.833mil|Location1.Y=3936.167mil|Location2.Y=3943.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad C3-1(4540mil,3990mil) on Multi-Layer And Track (4540mil,3920mil)(4540mil,3940mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4631.36mil|Location2.X=4642.61mil|Location1.Y=3946.448mil|Location2.Y=3957.698mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4631.36mil|Location2.X=4642.61mil|Location1.Y=3946.448mil|Location2.Y=3957.698mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.032mil &lt; 10mil) Between Pad C3-2(4640mil,3990mil) on Multi-Layer And Region (0 hole(s)) Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [6.032mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3835.004mil|Location2.X=3846.254mil|Location1.Y=4365.159mil|Location2.Y=4376.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3835.004mil|Location2.X=3846.254mil|Location1.Y=4365.159mil|Location2.Y=4376.409mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.569mil &lt; 10mil) Between Pad C4-1(3855mil,4405mil) on Multi-Layer And Track (3655mil,4365mil)(3855mil,4365mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.569mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3829.484mil|Location2.X=3840.734mil|Location1.Y=4432.034mil|Location2.Y=4443.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3829.484mil|Location2.X=3840.734mil|Location1.Y=4432.034mil|Location2.Y=4443.284mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.682mil &lt; 10mil) Between Pad C4-1(3855mil,4405mil) on Multi-Layer And Track (3655mil,4445mil)(3855mil,4445mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3811.175mil|Location2.X=3822.425mil|Location1.Y=4399.169mil|Location2.Y=4410.419mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3811.175mil|Location2.X=3822.425mil|Location1.Y=4399.169mil|Location2.Y=4410.419mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.607mil &lt; 10mil) Between Pad C4-1(3855mil,4405mil) on Multi-Layer And Track (3780mil,4405mil)(3810mil,4405mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [6.607mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.906mil|Location2.X=3656.156mil|Location1.Y=4363.31mil|Location2.Y=4374.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.906mil|Location2.X=3656.156mil|Location1.Y=4363.31mil|Location2.Y=4374.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Pad C4-2(3655mil,4405mil) on Multi-Layer And Track (3655mil,4365mil)(3855mil,4365mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3642.686mil|Location2.X=3653.936mil|Location1.Y=4435.157mil|Location2.Y=4446.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3642.686mil|Location2.X=3653.936mil|Location1.Y=4435.157mil|Location2.Y=4446.407mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.816mil &lt; 10mil) Between Pad C4-2(3655mil,4405mil) on Multi-Layer And Track (3655mil,4445mil)(3855mil,4445mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.816mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4686.796mil|Location2.X=4694.462mil|Location1.Y=3699.236mil|Location2.Y=3706.902mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4686.796mil|Location2.X=4694.462mil|Location1.Y=3699.236mil|Location2.Y=3706.902mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad C5-1(4705mil,3735mil) on Multi-Layer And Text "P1" (4764mil,3654mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4685.004mil|Location2.X=4696.254mil|Location1.Y=3695.159mil|Location2.Y=3706.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4685.004mil|Location2.X=4696.254mil|Location1.Y=3695.159mil|Location2.Y=3706.409mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.569mil &lt; 10mil) Between Pad C5-1(4705mil,3735mil) on Multi-Layer And Track (4505mil,3695mil)(4705mil,3695mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.569mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4679.484mil|Location2.X=4690.734mil|Location1.Y=3762.034mil|Location2.Y=3773.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4679.484mil|Location2.X=4690.734mil|Location1.Y=3762.034mil|Location2.Y=3773.284mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.682mil &lt; 10mil) Between Pad C5-1(4705mil,3735mil) on Multi-Layer And Track (4505mil,3775mil)(4705mil,3775mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4661.176mil|Location2.X=4672.426mil|Location1.Y=3729.169mil|Location2.Y=3740.419mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4661.176mil|Location2.X=4672.426mil|Location1.Y=3729.169mil|Location2.Y=3740.419mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.607mil &lt; 10mil) Between Pad C5-1(4705mil,3735mil) on Multi-Layer And Track (4630mil,3735mil)(4660mil,3735mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [6.607mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4494.906mil|Location2.X=4506.156mil|Location1.Y=3693.31mil|Location2.Y=3704.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4494.906mil|Location2.X=4506.156mil|Location1.Y=3693.31mil|Location2.Y=3704.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Pad C5-2(4505mil,3735mil) on Multi-Layer And Track (4505mil,3695mil)(4705mil,3695mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4492.686mil|Location2.X=4503.936mil|Location1.Y=3765.157mil|Location2.Y=3776.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4492.686mil|Location2.X=4503.936mil|Location1.Y=3765.157mil|Location2.Y=3776.407mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.816mil &lt; 10mil) Between Pad C5-2(4505mil,3735mil) on Multi-Layer And Track (4505mil,3775mil)(4705mil,3775mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.816mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2696.34mil|Location2.X=2707.59mil|Location1.Y=3488.31mil|Location2.Y=3499.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2696.34mil|Location2.X=2707.59mil|Location1.Y=3488.31mil|Location2.Y=3499.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Pad C6-1(2706.434mil,3530mil) on Multi-Layer And Track (2706.434mil,3490mil)(2806.434mil,3490mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2694.12mil|Location2.X=2705.37mil|Location1.Y=3560.157mil|Location2.Y=3571.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2694.12mil|Location2.X=2705.37mil|Location1.Y=3560.157mil|Location2.Y=3571.407mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.816mil &lt; 10mil) Between Pad C6-1(2706.434mil,3530mil) on Multi-Layer And Track (2706.434mil,3570mil)(2806.434mil,3570mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.816mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.438mil|Location2.X=2797.688mil|Location1.Y=3490.159mil|Location2.Y=3501.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.438mil|Location2.X=2797.688mil|Location1.Y=3490.159mil|Location2.Y=3501.409mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.569mil &lt; 10mil) Between Pad C6-2(2806.434mil,3530mil) on Multi-Layer And Track (2706.434mil,3490mil)(2806.434mil,3490mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.569mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2780.918mil|Location2.X=2792.168mil|Location1.Y=3557.034mil|Location2.Y=3568.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2780.918mil|Location2.X=2792.168mil|Location1.Y=3557.034mil|Location2.Y=3568.284mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.682mil &lt; 10mil) Between Pad C6-2(2806.434mil,3530mil) on Multi-Layer And Track (2706.434mil,3570mil)(2806.434mil,3570mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2874.906mil|Location2.X=2886.156mil|Location1.Y=4278.31mil|Location2.Y=4289.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2874.906mil|Location2.X=2886.156mil|Location1.Y=4278.31mil|Location2.Y=4289.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Pad C7-1(2885mil,4320mil) on Multi-Layer And Track (2885mil,4280mil)(3085mil,4280mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2872.686mil|Location2.X=2883.936mil|Location1.Y=4350.157mil|Location2.Y=4361.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2872.686mil|Location2.X=2883.936mil|Location1.Y=4350.157mil|Location2.Y=4361.407mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.816mil &lt; 10mil) Between Pad C7-1(2885mil,4320mil) on Multi-Layer And Track (2885mil,4360mil)(3085mil,4360mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.816mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2916.84mil|Location2.X=2928.09mil|Location1.Y=4314.375mil|Location2.Y=4325.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2916.84mil|Location2.X=2928.09mil|Location1.Y=4314.375mil|Location2.Y=4325.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.069mil &lt; 10mil) Between Pad C7-1(2885mil,4320mil) on Multi-Layer And Track (2930mil,4320mil)(2960mil,4320mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.069mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3065.004mil|Location2.X=3076.254mil|Location1.Y=4280.159mil|Location2.Y=4291.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3065.004mil|Location2.X=3076.254mil|Location1.Y=4280.159mil|Location2.Y=4291.409mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.569mil &lt; 10mil) Between Pad C7-2(3085mil,4320mil) on Multi-Layer And Track (2885mil,4280mil)(3085mil,4280mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.569mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3059.484mil|Location2.X=3070.734mil|Location1.Y=4347.034mil|Location2.Y=4358.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3059.484mil|Location2.X=3070.734mil|Location1.Y=4347.034mil|Location2.Y=4358.284mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.682mil &lt; 10mil) Between Pad C7-2(3085mil,4320mil) on Multi-Layer And Track (2885mil,4360mil)(3085mil,4360mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4432.011mil|Location2.X=4443.261mil|Location1.Y=2004.144mil|Location2.Y=2015.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4432.011mil|Location2.X=4443.261mil|Location1.Y=2004.144mil|Location2.Y=2015.394mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.278mil &lt; 10mil) Between Pad C8-1(4470mil,2010mil) on Multi-Layer And Track (4430mil,2010mil)(4430mil,2210mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.278mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4460.321mil|Location2.X=4471.571mil|Location1.Y=2042.594mil|Location2.Y=2053.844mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4460.321mil|Location2.X=4471.571mil|Location1.Y=2042.594mil|Location2.Y=2053.844mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.8mil &lt; 10mil) Between Pad C8-1(4470mil,2010mil) on Multi-Layer And Track (4470mil,2055mil)(4470mil,2085mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.8mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4496.407mil|Location2.X=4507.657mil|Location1.Y=2025.97mil|Location2.Y=2037.22mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4496.407mil|Location2.X=4507.657mil|Location1.Y=2025.97mil|Location2.Y=2037.22mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.936mil &lt; 10mil) Between Pad C8-1(4470mil,2010mil) on Multi-Layer And Track (4510mil,2010mil)(4510mil,2210mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.936mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4431.716mil|Location2.X=4442.966mil|Location1.Y=2184.484mil|Location2.Y=2195.734mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4431.716mil|Location2.X=4442.966mil|Location1.Y=2184.484mil|Location2.Y=2195.734mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.682mil &lt; 10mil) Between Pad C8-2(4470mil,2210mil) on Multi-Layer And Track (4430mil,2010mil)(4430mil,2210mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4496.087mil|Location2.X=4507.337mil|Location1.Y=2204.625mil|Location2.Y=2215.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4496.087mil|Location2.X=4507.337mil|Location1.Y=2204.625mil|Location2.Y=2215.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.583mil &lt; 10mil) Between Pad C8-2(4470mil,2210mil) on Multi-Layer And Track (4510mil,2010mil)(4510mil,2210mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.583mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3869.611mil|Location2.X=3880.861mil|Location1.Y=4137.367mil|Location2.Y=4148.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3869.611mil|Location2.X=3880.861mil|Location1.Y=4137.367mil|Location2.Y=4148.617mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad IC1-1(3855.551mil,4194.173mil) on Top Layer And Track (3633.11mil,4135.118mil)(3896.89mil,4135.118mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3779.06mil|Location2.X=3790.31mil|Location1.Y=4137.367mil|Location2.Y=4148.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3779.06mil|Location2.X=3790.31mil|Location1.Y=4137.367mil|Location2.Y=4148.617mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad IC1-2(3765mil,4194.173mil) on Top Layer And Track (3633.11mil,4135.118mil)(3896.89mil,4135.118mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3688.509mil|Location2.X=3699.759mil|Location1.Y=4137.367mil|Location2.Y=4148.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3688.509mil|Location2.X=3699.759mil|Location1.Y=4137.367mil|Location2.Y=4148.617mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad IC1-3(3674.449mil,4194.173mil) on Top Layer And Track (3633.11mil,4135.118mil)(3896.89mil,4135.118mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3694.414mil|Location2.X=3705.664mil|Location1.Y=4011.383mil|Location2.Y=4022.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3694.414mil|Location2.X=3705.664mil|Location1.Y=4011.383mil|Location2.Y=4022.633mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad IC1-4(3765mil,3965.827mil) on Top Layer And Track (3633.11mil,4024.882mil)(3896.89mil,4024.882mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.873mil|Location2.X=4525.539mil|Location1.Y=4531.167mil|Location2.Y=4538.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4517.873mil|Location2.X=4525.539mil|Location1.Y=4531.167mil|Location2.Y=4538.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad JDC1-1(4590mil,4530mil) on Multi-Layer And Track (4440mil,4535mil)(4770mil,4535mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4763.45mil|Location2.X=4771.116mil|Location1.Y=4551.582mil|Location2.Y=4559.249mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4763.45mil|Location2.X=4771.116mil|Location1.Y=4551.582mil|Location2.Y=4559.249mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad JDC1-3(4790mil,4630mil) on Multi-Layer And Track (4770mil,4535mil)(4770mil,5080mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.376mil|Location2.X=2797.626mil|Location1.Y=3810.625mil|Location2.Y=3821.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.376mil|Location2.X=2797.626mil|Location1.Y=3810.625mil|Location2.Y=3821.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.5mil &lt; 10mil) Between Pad LED1-1(2783.001mil,3765mil) on Multi-Layer And Track (2792.001mil,3821mil)(2792.001mil,3849mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [2.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2790.375mil|Location2.X=2801.625mil|Location1.Y=4120.125mil|Location2.Y=4131.375mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2790.375mil|Location2.X=2801.625mil|Location1.Y=4120.125mil|Location2.Y=4131.375mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Pad LED2-1(2795mil,4075mil) on Multi-Layer And Track (2796mil,4130mil)(2796mil,4158mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2882.883mil|Location2.X=2890.549mil|Location1.Y=3741.147mil|Location2.Y=3748.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2882.883mil|Location2.X=2890.549mil|Location1.Y=3741.147mil|Location2.Y=3748.814mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad R1-1(2919.999mil,3765mil) on Multi-Layer And Text "LED1" (2853.001mil,3685mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2949.132mil|Location2.X=2960.382mil|Location1.Y=3760.594mil|Location2.Y=3771.844mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2949.132mil|Location2.X=2960.382mil|Location1.Y=3760.594mil|Location2.Y=3771.844mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.49mil &lt; 10mil) Between Pad R1-1(2919.999mil,3765mil) on Multi-Layer And Track (2961.999mil,3766mil)(3002.999mil,3766mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.49mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3277.794mil|Location2.X=3289.044mil|Location1.Y=3760.151mil|Location2.Y=3771.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3277.794mil|Location2.X=3289.044mil|Location1.Y=3760.151mil|Location2.Y=3771.401mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.847mil &lt; 10mil) Between Pad R1-2(3319.999mil,3765mil) on Multi-Layer And Track (3237.999mil,3766mil)(3275.999mil,3766mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.847mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2690.813mil|Location2.X=2702.063mil|Location1.Y=4355.462mil|Location2.Y=4366.712mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2690.813mil|Location2.X=2702.063mil|Location1.Y=4355.462mil|Location2.Y=4366.712mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.234mil &lt; 10mil) Between Pad R2-1(2705mil,4320mil) on Multi-Layer And Track (2704mil,4362mil)(2704mil,4403mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.234mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2694.707mil|Location2.X=2705.957mil|Location1.Y=4671.967mil|Location2.Y=4683.217mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2694.707mil|Location2.X=2705.957mil|Location1.Y=4671.967mil|Location2.Y=4683.217mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.997mil &lt; 10mil) Between Pad R2-2(2705mil,4720mil) on Multi-Layer And Track (2704mil,4638mil)(2704mil,4676mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0.997mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2949.132mil|Location2.X=2960.382mil|Location1.Y=4070.594mil|Location2.Y=4081.844mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2949.132mil|Location2.X=2960.382mil|Location1.Y=4070.594mil|Location2.Y=4081.844mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.49mil &lt; 10mil) Between Pad R3-1(2919.999mil,4075mil) on Multi-Layer And Track (2961.999mil,4076mil)(3002.999mil,4076mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.49mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3277.794mil|Location2.X=3289.044mil|Location1.Y=4070.151mil|Location2.Y=4081.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3277.794mil|Location2.X=3289.044mil|Location1.Y=4070.151mil|Location2.Y=4081.401mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.847mil &lt; 10mil) Between Pad R3-2(3319.999mil,4075mil) on Multi-Layer And Track (3237.999mil,4076mil)(3275.999mil,4076mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.847mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2916.428mil|Location2.X=2927.678mil|Location1.Y=4519.375mil|Location2.Y=4530.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2916.428mil|Location2.X=2927.678mil|Location1.Y=4519.375mil|Location2.Y=4530.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.894mil &lt; 10mil) Between Pad SW1-1(2885mil,4525mil) on Multi-Layer And Track (2930mil,4525mil)(3085mil,4525mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.894mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3087.178mil|Location2.X=3098.428mil|Location1.Y=4719.139mil|Location2.Y=4730.389mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3087.178mil|Location2.X=3098.428mil|Location1.Y=4719.139mil|Location2.Y=4730.389mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.614mil &lt; 10mil) Between Pad SW1-2(3135mil,4725mil) on Multi-Layer And Track (2931mil,4725mil)(3085mil,4725mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.614mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3110.556mil|Location2.X=3121.806mil|Location1.Y=4734.375mil|Location2.Y=4745.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3110.556mil|Location2.X=3121.806mil|Location1.Y=4734.375mil|Location2.Y=4745.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.637mil &lt; 10mil) Between Pad SW1-2(3135mil,4725mil) on Multi-Layer And Track (3124mil,4740mil)(3125mil,4739mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.637mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3087.178mil|Location2.X=3098.428mil|Location1.Y=4519.139mil|Location2.Y=4530.389mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3087.178mil|Location2.X=3098.428mil|Location1.Y=4519.139mil|Location2.Y=4530.389mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.614mil &lt; 10mil) Between Pad SW1-3(3135mil,4525mil) on Multi-Layer And Track (2930mil,4525mil)(3085mil,4525mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.614mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2919.088mil|Location2.X=2930.338mil|Location1.Y=4719.375mil|Location2.Y=4730.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2919.088mil|Location2.X=2930.338mil|Location1.Y=4719.375mil|Location2.Y=4730.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.573mil &lt; 10mil) Between Pad SW1-4(2885mil,4725mil) on Multi-Layer And Track (2931mil,4725mil)(3085mil,4725mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [6.573mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.625mil|Location2.X=3959.875mil|Location1.Y=1374.375mil|Location2.Y=1385.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.625mil|Location2.X=3959.875mil|Location1.Y=1374.375mil|Location2.Y=1385.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Pad U1-1(4000mil,1410mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2300.103mil|Location2.Y=2311.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2300.103mil|Location2.Y=2311.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-10(4000mil,2310mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2400.103mil|Location2.Y=2411.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2400.103mil|Location2.Y=2411.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-11(4000mil,2410mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2500.103mil|Location2.Y=2511.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2500.103mil|Location2.Y=2511.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-12(4000mil,2510mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2600.103mil|Location2.Y=2611.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2600.103mil|Location2.Y=2611.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-13(4000mil,2610mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2700.103mil|Location2.Y=2711.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2700.103mil|Location2.Y=2711.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-14(4000mil,2710mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2724.033mil|Location2.Y=2735.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2724.033mil|Location2.Y=2735.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-15(4300mil,2710mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2624.033mil|Location2.Y=2635.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2624.033mil|Location2.Y=2635.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-16(4300mil,2610mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2524.033mil|Location2.Y=2535.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2524.033mil|Location2.Y=2535.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-17(4300mil,2510mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2424.033mil|Location2.Y=2435.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2424.033mil|Location2.Y=2435.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-18(4300mil,2410mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2324.033mil|Location2.Y=2335.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2324.033mil|Location2.Y=2335.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-19(4300mil,2310mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1500.103mil|Location2.Y=1511.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1500.103mil|Location2.Y=1511.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-2(4000mil,1510mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2224.033mil|Location2.Y=2235.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2224.033mil|Location2.Y=2235.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-20(4300mil,2210mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2124.033mil|Location2.Y=2135.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2124.033mil|Location2.Y=2135.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-21(4300mil,2110mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2024.033mil|Location2.Y=2035.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=2024.033mil|Location2.Y=2035.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-22(4300mil,2010mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1924.033mil|Location2.Y=1935.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1924.033mil|Location2.Y=1935.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-23(4300mil,1910mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1824.033mil|Location2.Y=1835.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1824.033mil|Location2.Y=1835.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-24(4300mil,1810mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1724.033mil|Location2.Y=1735.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1724.033mil|Location2.Y=1735.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-25(4300mil,1710mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1624.033mil|Location2.Y=1635.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1624.033mil|Location2.Y=1635.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-26(4300mil,1610mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1524.033mil|Location2.Y=1535.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1524.033mil|Location2.Y=1535.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-27(4300mil,1510mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1424.033mil|Location2.Y=1435.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4336.468mil|Location2.X=4347.718mil|Location1.Y=1424.033mil|Location2.Y=1435.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-28(4300mil,1410mil) on Multi-Layer And Track (4350mil,1360mil)(4350mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1600.103mil|Location2.Y=1611.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1600.103mil|Location2.Y=1611.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-3(4000mil,1610mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1700.103mil|Location2.Y=1711.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1700.103mil|Location2.Y=1711.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-4(4000mil,1710mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1800.103mil|Location2.Y=1811.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1800.103mil|Location2.Y=1811.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-5(4000mil,1810mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1900.103mil|Location2.Y=1911.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=1900.103mil|Location2.Y=1911.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-6(4000mil,1910mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2000.103mil|Location2.Y=2011.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2000.103mil|Location2.Y=2011.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-7(4000mil,2010mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2100.103mil|Location2.Y=2111.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2100.103mil|Location2.Y=2111.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-8(4000mil,2110mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2200.103mil|Location2.Y=2211.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3948.768mil|Location2.X=3960.018mil|Location1.Y=2200.103mil|Location2.Y=2211.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-9(4000mil,2210mil) on Multi-Layer And Track (3950mil,1360mil)(3950mil,2760mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3101.815mil|Location2.X=3113.065mil|Location1.Y=3483.31mil|Location2.Y=3494.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3101.815mil|Location2.X=3113.065mil|Location1.Y=3483.31mil|Location2.Y=3494.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.591mil &lt; 10mil) Between Pad X1-1(3110mil,3530mil) on Multi-Layer And Track (3111mil,3451mil)(3111mil,3482mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.591mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3103.302mil|Location2.X=3114.552mil|Location1.Y=3366.406mil|Location2.Y=3377.656mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3103.302mil|Location2.X=3114.552mil|Location1.Y=3366.406mil|Location2.Y=3377.656mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.469mil &lt; 10mil) Between Pad X1-2(3110mil,3330mil) on Multi-Layer And Track (3111mil,3380mil)(3111mil,3410mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.469mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNVLC1YTUBAEZKOAZMN2KRI4QVFQMNQKMJGMMSEOFAMZ004RBF1FJ"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2845.375mil|Location2.X=2853.042mil|Location1.Y=3722.418mil|Location2.Y=3730.085mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2845.375mil|Location2.X=2853.042mil|Location1.Y=3722.418mil|Location2.Y=3730.085mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Arc (2733.001mil,3765mil) on Bottom Overlay And Text "LED1" (2853.001mil,3685mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2784.125mil|Location2.X=2791.792mil|Location1.Y=4181.167mil|Location2.Y=4188.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2784.125mil|Location2.X=2791.792mil|Location1.Y=4181.167mil|Location2.Y=4188.833mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Arc (2740mil,4075mil) on Bottom Overlay And Text "LED2" (2825mil,4185mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3799.632mil|Location2.X=3810.882mil|Location1.Y=4549.975mil|Location2.Y=4561.225mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3799.632mil|Location2.X=3810.882mil|Location1.Y=4549.975mil|Location2.Y=4561.225mil|Absolute=True">Silk To Silk Clearance Constraint: (3.536mil &lt; 10mil) Between Arc (3746.583mil,4643mil) on Bottom Overlay And Text "C4" (3899mil,4490mil) on Bottom Overlay Silk Text to Silk Clearance [3.536mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4735.199mil|Location2.X=4742.865mil|Location1.Y=3710.147mil|Location2.Y=3717.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4735.199mil|Location2.X=4742.865mil|Location1.Y=3710.147mil|Location2.Y=3717.814mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Arc (4705mil,3735mil) on Bottom Overlay And Text "P1" (4764mil,3654mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3804.062mil|Location2.X=3815.312mil|Location1.Y=4553.859mil|Location2.Y=4565.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3804.062mil|Location2.X=3815.312mil|Location1.Y=4553.859mil|Location2.Y=4565.109mil|Absolute=True">Silk To Silk Clearance Constraint: (9.053mil &lt; 10mil) Between Region (0 hole(s)) Bottom Overlay And Text "C4" (3899mil,4490mil) on Bottom Overlay Silk Text to Silk Clearance [9.053mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4690.189mil|Location2.X=4697.856mil|Location1.Y=3691.167mil|Location2.Y=3698.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4690.189mil|Location2.X=4697.856mil|Location1.Y=3691.167mil|Location2.Y=3698.833mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "P1" (4764mil,3654mil) on Bottom Overlay And Track (4505mil,3695mil)(4705mil,3695mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3165.18mil|Location2.X=3172.846mil|Location1.Y=3706.167mil|Location2.Y=3713.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3165.18mil|Location2.X=3172.846mil|Location1.Y=3706.167mil|Location2.Y=3713.833mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "X1" (3187mil,3677mil) on Bottom Overlay And Track (3002.999mil,3710mil)(3237.999mil,3710mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID00NSHCKQTQSMCJ0LJFDMWPKFF1HLDCM3WHT3XLSB3TGCRHTEGZP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3646.5mil|Location2.X=3702.743mil|Location1.Y=4116.5mil|Location2.Y=4205.364mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3646.5mil|Location2.X=3702.743mil|Location1.Y=4116.5mil|Location2.Y=4205.364mil|Absolute=True">Net Antennae: Track (3670mil,4140mil)(3670mil,4220mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3686.5mil|Location2.X=3731.858mil|Location1.Y=3886.5mil|Location2.Y=3956.979mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3686.5mil|Location2.X=3731.858mil|Location1.Y=3886.5mil|Location2.Y=3956.979mil|Absolute=True">Net Antennae: Track (3705mil,3905mil)(3760mil,3905mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3741.5mil|Location2.X=3797.743mil|Location1.Y=4276.5mil|Location2.Y=4365.364mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3741.5mil|Location2.X=3797.743mil|Location1.Y=4276.5mil|Location2.Y=4365.364mil|Absolute=True">Net Antennae: Track (3765mil,4220mil)(3765mil,4300mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3831.5mil|Location2.X=3887.743mil|Location1.Y=4116.5mil|Location2.Y=4205.364mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3831.5mil|Location2.X=3887.743mil|Location1.Y=4116.5mil|Location2.Y=4205.364mil|Absolute=True">Net Antennae: Track (3855mil,4140mil)(3855mil,4220mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDRJLODZWTMOA3EMSYPIJVP1YKPHO5HVUWXW2BVLCZIHLBOVT2OXUC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY'))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3621.299mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4253.228mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3621.299mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4253.228mil|Absolute=True">Room Definition: Between Component IC1-LM1117 (3765mil,4080mil) on Top Layer And Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2843.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4766.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2843.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4766.5mil|Absolute=True">Room Definition: Between Component SW1-SW (2885mil,4525mil) on Bottom Layer And Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2645mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=2820mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2645mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=2820mil|Absolute=True">Room Definition: Between DIP Component NodeMCU ESP1-NodeMCU (2710mil,1355mil) on Bottom Layer And Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4501.063mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3624.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4501.063mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3624.37mil|Absolute=True">Room Definition: Between DIP Component P1-Header 4X2 (4655mil,3475mil) on Bottom Layer And Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3946.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=2777.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3946.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=2777.323mil|Absolute=True">Room Definition: Between DIP Component U1-ATmega328-PU (4000mil,1410mil) on Bottom Layer And Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2646.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3373.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2646.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3373.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component C1-22pF (2706.434mil,3330mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3643.083mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4746.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3643.083mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4746.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component C2-10uF (3700mil,4643mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4483.083mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4093.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4483.083mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4093.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component C3-10uF (4540mil,3990mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3594.515mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4459.608mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3594.515mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4459.608mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component C4-104 (3855mil,4405mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4444.515mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3789.608mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4444.515mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3789.608mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component C5-104 (4705mil,3735mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2646.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3573.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2646.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3573.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component C6-22pF (2706.434mil,3530mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2830.524mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4364.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2830.524mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4364.211mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component C7-104 (2885mil,4320mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4425.789mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=2270.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4425.789mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=2270.485mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component C8-104 (4470mil,2010mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4420.882mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=5083.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4420.882mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=5083.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component JDC1-Jac DC (4690mil,4655mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2625.501mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3888.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2625.501mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3888.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component LED1-LED (2783.001mil,3765mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2632.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4198.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2632.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4198.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component LED2-LED (2740mil,4075mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2873.499mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3823.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2873.499mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3823.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component R1-330 (2920mil,3765mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2646.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4766.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2646.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4766.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component R2-10K (2705mil,4320mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2873.499mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4133.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2873.499mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=4133.5mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component R3-330 (2920mil,4075mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3016.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3646.634mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\GATEWAY\GATEWAY.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3016.5mil|Location2.X=5605mil|Location1.Y=885mil|Location2.Y=3646.634mil|Absolute=True">Room Definition: Between Room GATEWAY (Bounding Region = (5245mil, 885mil, 5605mil, 1285mil) (InComponentClass('GATEWAY')) And Small Component X1-16Mhz (3110mil,3430mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

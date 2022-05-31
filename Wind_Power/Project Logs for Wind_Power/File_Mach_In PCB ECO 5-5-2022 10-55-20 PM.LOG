@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=+12 Pin=D4-1
+Removed Member From Class: ClassName=File_Nguyen_Ly Member=D4
+Change Component Footprint: Designator=R5 Old Footprint=R1/4W New Footprint=R1/2W
+Change Component Footprint: Designator=R7 Old Footprint=R1/4W New Footprint=R1/2W
+Change Component Comment : Designator=Q1 Old Comment=IRF9540 New Comment=IRFZ44
+Change Component Comment : Designator=Q2 Old Comment=IRF9540 New Comment=IRFZ44
+Added Pin To Net: NetName=+12 Pin=R4-2
+Added Room: Name=File_Nguyen_Ly

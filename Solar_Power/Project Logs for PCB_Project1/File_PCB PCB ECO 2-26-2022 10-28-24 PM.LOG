@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=GND Pin=J3-1
+Removed Pin From Net: NetName=+12 Pin=J3-2
+Removed Member From Class: ClassName=File_Nguyen_Ly Member=J3
+Added Pin To Net: NetName=+12 Pin=D3-2
+Added Pin To Net: NetName=+12 Pin=J2-1
+Added Pin To Net: NetName=GND Pin=J2-2
+Added Pin To Net: NetName=GND Pin=Q1-2
+Added Pin To Net: NetName=GND Pin=Q1-2
+Change Net Name : Old Net Name=+12 New Net Name=Vcc

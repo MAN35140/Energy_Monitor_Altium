@@ -1,0 +1,787 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD18\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">5/5/2022</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">10:39:06 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc" class="file"><acronym title="D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc">D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">5</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">140</td></tr>
+</table>
+</td>
+</table><a name="IDJOQUR4XSKVFNJK5PSTIZHCDP5NE0UMYYQWHEGBHUC30VSKCUWPJF"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDEMC1YOTDQJ3EFIIFBNHUUZN5TEQ4SB2WAVF0UIGR1HHRO3KHFTGK">Unplated multi-layer pad(s) detected</a></td>
+<td class="column2">5</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">5</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKYV4EWZ4EPYUCNDI4YZ0ET0COPNXNMGYQGXQWEBJE1ILEZ5XVAYB">Clearance Constraint (Gap=20mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGKXMCP3HSVLWLEKA32GOEHHGMNW1QCTXV5RHD4G4GKRGRY3VTPJL">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLSAIODJ2ZDQLPKVABYBLQHRXMMVQMP4HSKG2SOJETNKTJD2JLYF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDS5FT4LVTM5RKH31QZU0BJ100KNMJGRN5LCCERYMZN0S3D4EMHNOL">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDOFODBJJ142JHFMGAVQY410LUPMRQC3AE042CNBQM43PJJJ14ATG">Width Constraint (Min=20mil) (Max=150mil) (Preferred=20mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXDBTJFEGBPWVBTVWFRH5A1YYNOWFXBAAYHRZGDG4J0HPQIMQ0CML">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRPTMHMYMROQNIOCLPFXF2CMBKIYONUWPP5JA0JJBJZHC5PWU5JED">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFQRTAGVJZUF0GP5Y04BWQ3JIFPDPVRNV4CH43UOV02EFFXATU41K">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXSSUQTT12MAZPRWBECKUBTP2EJPVANQ4RHRCQJPV12PDH4SM4KHD">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDC0AKKKP5ILK3DL4L2CLEMQVZ4LDQGNQMSYQHKYCSJZDL2JDAHOKJ">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">118</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSXSWRDU4QRIGH1PHZCWTVO1Q4G4QTBD10AIOIDIMOB42RD3PSDHB">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDST2XJ1G53QALJOTG5OBDCZN51PZYO41KBYQMSNLHVRBPJDR3UTQB">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3M5OMOCRLU2RMTJY25MTXFMSQB2LDKEB45DPIMEFN2LFEMJRB54L">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">140</td>
+</tr>
+</table><br><a name="IDUC3XJUBCJZUNIS4W2ZGTDWCZIGBNLFQHEBNHAWOX2KZZRHOFOBRN"><h2>Warnings</h2></a><a name="IDEMC1YOTDQJ3EFIIFBNHUUZN5TEQ4SB2WAVF0UIGR1HHRO3KHFTGK"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="warning">Unplated multi-layer pad(s) detected</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2861mil|Location2.Y=2989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2861mil|Location2.Y=2989mil|Absolute=True">Pad J3-3(3015mil,2925mil) on Multi-Layer</acronym></a> on <a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2906mil|Location2.X=3504mil|Location1.Y=2861mil|Location2.Y=3334mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2906mil|Location2.X=3504mil|Location1.Y=2861mil|Location2.Y=3334mil|Absolute=True">Net NetJ3_3</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2561mil|Location2.Y=2689mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2561mil|Location2.Y=2689mil|Absolute=True">Pad J3-2(3015mil,2625mil) on Multi-Layer</acronym></a> on <a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2996mil|Location2.X=7560mil|Location1.Y=2376mil|Location2.Y=4839.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2996mil|Location2.X=7560mil|Location1.Y=2376mil|Location2.Y=4839.118mil|Absolute=True">Net +12</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2261mil|Location2.Y=2389mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2261mil|Location2.Y=2389mil|Absolute=True">Pad J3-1(3015mil,2325mil) on Multi-Layer</acronym></a> on <a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2996mil|Location2.X=3599mil|Location1.Y=1906mil|Location2.Y=2309mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2996mil|Location2.X=3599mil|Location1.Y=1906mil|Location2.Y=2309mil|Absolute=True">Net NetJ3_1</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7086mil|Location2.X=7214mil|Location1.Y=2901mil|Location2.Y=3029mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7086mil|Location2.X=7214mil|Location1.Y=2901mil|Location2.Y=3029mil|Absolute=True">Pad J2-1(7150mil,2965mil) on Multi-Layer</acronym></a> on <a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3136.787mil|Location2.X=7169mil|Location1.Y=2086mil|Location2.Y=4704mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3136.787mil|Location2.X=7169mil|Location1.Y=2086mil|Location2.Y=4704mil|Absolute=True">Net GND</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7086mil|Location2.X=7214mil|Location1.Y=2601mil|Location2.Y=2729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7086mil|Location2.X=7214mil|Location1.Y=2601mil|Location2.Y=2729mil|Absolute=True">Pad J2-2(7150mil,2665mil) on Multi-Layer</acronym></a> on <a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2996mil|Location2.X=7560mil|Location1.Y=2376mil|Location2.Y=4839.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2996mil|Location2.X=7560mil|Location1.Y=2376mil|Location2.Y=4839.118mil|Absolute=True">Net +12</acronym></a></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDLSAIODJ2ZDQLPKVABYBLQHRXMMVQMP4HSKG2SOJETNKTJD2JLYF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7050mil|Location2.X=7250mil|Location1.Y=2865mil|Location2.Y=3540mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7050mil|Location2.X=7250mil|Location1.Y=2865mil|Location2.Y=3540mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J2-1(7150mil,2965mil) on Multi-Layer [Unplated] And Track (6425mil,4165mil)(7150mil,3440mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6111mil|Location2.X=7214mil|Location1.Y=2456mil|Location2.Y=2729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6111mil|Location2.X=7214mil|Location1.Y=2456mil|Location2.Y=2729mil|Absolute=True">Un-Routed Net Constraint: Net +12 Between Pad R7-2(6150mil,2495mil) on Multi-Layer And Pad J2-2(7150mil,2665mil) on Multi-Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2261mil|Location2.Y=2389mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2261mil|Location2.Y=2389mil|Absolute=True">Un-Routed Net Constraint: Net NetJ3_1 Between Pad J3-1(3015mil,2325mil) on Multi-Layer [Unplated] And Pad J3-1(3015mil,2325mil) on Multi-Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2261mil|Location2.Y=2389mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2261mil|Location2.Y=2389mil|Absolute=True">Un-Routed Net Constraint: Net NetJ3_1 Between Pad J3-1(3015mil,2325mil) on Multi-Layer [Unplated] And Pad J3-1(3015mil,2325mil) on Multi-Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2561mil|Location2.Y=2689mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2561mil|Location2.Y=2689mil|Absolute=True">Un-Routed Net Constraint: Net +12 Between Pad J3-2(3015mil,2625mil) on Multi-Layer [Unplated] And Pad J3-2(3015mil,2625mil) on Multi-Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2561mil|Location2.Y=2689mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2561mil|Location2.Y=2689mil|Absolute=True">Un-Routed Net Constraint: Net +12 Between Pad J3-2(3015mil,2625mil) on Multi-Layer [Unplated] And Pad J3-2(3015mil,2625mil) on Multi-Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2861mil|Location2.Y=2989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2861mil|Location2.Y=2989mil|Absolute=True">Un-Routed Net Constraint: Net NetJ3_3 Between Pad J3-3(3015mil,2925mil) on Multi-Layer [Unplated] And Pad J3-3(3015mil,2925mil) on Multi-Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2861mil|Location2.Y=2989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2951mil|Location2.X=3079mil|Location1.Y=2861mil|Location2.Y=2989mil|Absolute=True">Un-Routed Net Constraint: Net NetJ3_3 Between Pad J3-3(3015mil,2925mil) on Multi-Layer [Unplated] And Pad J3-3(3015mil,2925mil) on Multi-Layer [Unplated] </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDRPTMHMYMROQNIOCLPFXF2CMBKIYONUWPP5JA0JJBJZHC5PWU5JED"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.32mil|Location2.X=2759.68mil|Location1.Y=1585.32mil|Location2.Y=1704.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.32mil|Location2.X=2759.68mil|Location1.Y=1585.32mil|Location2.Y=1704.68mil|Absolute=True">Hole Size Constraint: (118.11mil &gt; 100mil) Pad Free-1(2700mil,1645mil) on Multi-Layer Actual Hole Size = 118.11mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.32mil|Location2.X=2759.68mil|Location1.Y=4860.32mil|Location2.Y=4979.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.32mil|Location2.X=2759.68mil|Location1.Y=4860.32mil|Location2.Y=4979.68mil|Absolute=True">Hole Size Constraint: (118.11mil &gt; 100mil) Pad Free-1(2700mil,4920mil) on Multi-Layer Actual Hole Size = 118.11mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7380.32mil|Location2.X=7499.68mil|Location1.Y=1585.32mil|Location2.Y=1704.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7380.32mil|Location2.X=7499.68mil|Location1.Y=1585.32mil|Location2.Y=1704.68mil|Absolute=True">Hole Size Constraint: (118.11mil &gt; 100mil) Pad Free-1(7440mil,1645mil) on Multi-Layer Actual Hole Size = 118.11mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7380.32mil|Location2.X=7499.68mil|Location1.Y=4860.32mil|Location2.Y=4979.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7380.32mil|Location2.X=7499.68mil|Location1.Y=4860.32mil|Location2.Y=4979.68mil|Absolute=True">Hole Size Constraint: (118.11mil &gt; 100mil) Pad Free-1(7440mil,4920mil) on Multi-Layer Actual Hole Size = 118.11mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDC0AKKKP5ILK3DL4L2CLEMQVZ4LDQGNQMSYQHKYCSJZDL2JDAHOKJ"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2947.088mil|Location2.X=2958.338mil|Location1.Y=2262.961mil|Location2.Y=2274.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2947.088mil|Location2.X=2958.338mil|Location1.Y=2262.961mil|Location2.Y=2274.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.727mil &lt; 10mil) Between Arc (2865mil,2325mil) on Bottom Overlay And Pad J3-1(3015mil,2325mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [7.727mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2960.333mil|Location2.X=2971.583mil|Location1.Y=2616.324mil|Location2.Y=2627.574mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2960.333mil|Location2.X=2971.583mil|Location1.Y=2616.324mil|Location2.Y=2627.574mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.157mil &lt; 10mil) Between Arc (2865mil,2625mil) on Bottom Overlay And Pad J3-2(3015mil,2625mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.157mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2960.333mil|Location2.X=2971.583mil|Location1.Y=2916.324mil|Location2.Y=2927.574mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2960.333mil|Location2.X=2971.583mil|Location1.Y=2916.324mil|Location2.Y=2927.574mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.157mil &lt; 10mil) Between Arc (2865mil,2925mil) on Bottom Overlay And Pad J3-3(3015mil,2925mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.157mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.997mil|Location2.X=4059.247mil|Location1.Y=4174.487mil|Location2.Y=4185.737mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.997mil|Location2.X=4059.247mil|Location1.Y=4174.487mil|Location2.Y=4185.737mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.512mil &lt; 10mil) Between Arc (3955mil,4240mil) on Bottom Overlay And Pad VR1-1(4055mil,4140mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [8.512mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3983.847mil|Location2.X=3995.097mil|Location1.Y=4344.698mil|Location2.Y=4355.948mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3983.847mil|Location2.X=3995.097mil|Location1.Y=4344.698mil|Location2.Y=4355.948mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.854mil &lt; 10mil) Between Arc (3955mil,4240mil) on Bottom Overlay And Pad VR1-2(3955mil,4340mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [7.854mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3915.222mil|Location2.X=3926.472mil|Location1.Y=4345.24mil|Location2.Y=4356.49mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3915.222mil|Location2.X=3926.472mil|Location1.Y=4345.24mil|Location2.Y=4356.49mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.494mil &lt; 10mil) Between Arc (3955mil,4241mil) on Bottom Overlay And Pad VR1-2(3955mil,4340mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [8.494mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3840.667mil|Location2.X=3851.917mil|Location1.Y=4173.985mil|Location2.Y=4185.235mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3840.667mil|Location2.X=3851.917mil|Location1.Y=4173.985mil|Location2.Y=4185.235mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.033mil &lt; 10mil) Between Arc (3955mil,4241mil) on Bottom Overlay And Pad VR1-3(3855mil,4140mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [9.033mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3919.947mil|Location2.X=3931.197mil|Location1.Y=4639.062mil|Location2.Y=4650.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3919.947mil|Location2.X=3931.197mil|Location1.Y=4639.062mil|Location2.Y=4650.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (3955mil,4665mil) on Bottom Overlay And Pad C1-1(3955mil,4665mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.227mil|Location2.X=3932.477mil|Location1.Y=4881.428mil|Location2.Y=4892.678mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.227mil|Location2.X=3932.477mil|Location1.Y=4881.428mil|Location2.Y=4892.678mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (3955mil,4865mil) on Bottom Overlay And Pad C1-2(3955mil,4865mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5474.947mil|Location2.X=5486.197mil|Location1.Y=3134.062mil|Location2.Y=3145.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5474.947mil|Location2.X=5486.197mil|Location1.Y=3134.062mil|Location2.Y=3145.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.484mil &lt; 10mil) Between Arc (5510mil,3160mil) on Bottom Overlay And Pad C3-2(5510mil,3160mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.484mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5649.906mil|Location2.X=5661.156mil|Location1.Y=3118.31mil|Location2.Y=3129.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5649.906mil|Location2.X=5661.156mil|Location1.Y=3118.31mil|Location2.Y=3129.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Arc (5660mil,3160mil) on Bottom Overlay And Pad C3-1(5660mil,3160mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5788.528mil|Location2.X=5799.778mil|Location1.Y=2803.51mil|Location2.Y=2814.76mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5788.528mil|Location2.X=5799.778mil|Location1.Y=2803.51mil|Location2.Y=2814.76mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.494mil &lt; 10mil) Between Arc (5760mil,2919mil) on Bottom Overlay And Pad VR2-2(5760mil,2820mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [8.494mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5853.068mil|Location2.X=5864.318mil|Location1.Y=2973.836mil|Location2.Y=2985.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5853.068mil|Location2.X=5864.318mil|Location1.Y=2973.836mil|Location2.Y=2985.086mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.208mil &lt; 10mil) Between Arc (5760mil,2919mil) on Bottom Overlay And Pad VR2-3(5860mil,3020mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [9.208mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5648.337mil|Location2.X=5659.587mil|Location1.Y=2974.937mil|Location2.Y=2986.187mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5648.337mil|Location2.X=5659.587mil|Location1.Y=2974.937mil|Location2.Y=2986.187mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.275mil &lt; 10mil) Between Arc (5760mil,2920mil) on Bottom Overlay And Pad VR2-1(5660mil,3020mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [5.275mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5719.903mil|Location2.X=5731.153mil|Location1.Y=2804.052mil|Location2.Y=2815.302mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5719.903mil|Location2.X=5731.153mil|Location1.Y=2804.052mil|Location2.Y=2815.302mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.854mil &lt; 10mil) Between Arc (5760mil,2920mil) on Bottom Overlay And Pad VR2-2(5760mil,2820mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [7.854mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7193.417mil|Location2.X=7204.667mil|Location1.Y=2662.426mil|Location2.Y=2673.676mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7193.417mil|Location2.X=7204.667mil|Location1.Y=2662.426mil|Location2.Y=2673.676mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.157mil &lt; 10mil) Between Arc (7300mil,2665mil) on Bottom Overlay And Pad J2-2(7150mil,2665mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [1.157mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7207.596mil|Location2.X=7218.846mil|Location1.Y=2901.522mil|Location2.Y=2912.772mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7207.596mil|Location2.X=7218.846mil|Location1.Y=2901.522mil|Location2.Y=2912.772mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.741mil &lt; 10mil) Between Arc (7300mil,2965mil) on Bottom Overlay And Pad J2-1(7150mil,2965mil) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [7.741mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3917.01mil|Location2.X=3928.26mil|Location1.Y=4659.144mil|Location2.Y=4670.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3917.01mil|Location2.X=3928.26mil|Location1.Y=4659.144mil|Location2.Y=4670.394mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.278mil &lt; 10mil) Between Pad C1-1(3955mil,4665mil) on Multi-Layer And Track (3915mil,4665mil)(3915mil,4865mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.278mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3945.321mil|Location2.X=3956.571mil|Location1.Y=4697.594mil|Location2.Y=4708.844mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3945.321mil|Location2.X=3956.571mil|Location1.Y=4697.594mil|Location2.Y=4708.844mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.8mil &lt; 10mil) Between Pad C1-1(3955mil,4665mil) on Multi-Layer And Track (3955mil,4710mil)(3955mil,4740mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.8mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3981.407mil|Location2.X=3992.657mil|Location1.Y=4680.97mil|Location2.Y=4692.22mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3981.407mil|Location2.X=3992.657mil|Location1.Y=4680.97mil|Location2.Y=4692.22mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.936mil &lt; 10mil) Between Pad C1-1(3955mil,4665mil) on Multi-Layer And Track (3995mil,4665mil)(3995mil,4865mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.936mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3916.716mil|Location2.X=3927.966mil|Location1.Y=4839.484mil|Location2.Y=4850.734mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3916.716mil|Location2.X=3927.966mil|Location1.Y=4839.484mil|Location2.Y=4850.734mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.682mil &lt; 10mil) Between Pad C1-2(3955mil,4865mil) on Multi-Layer And Track (3915mil,4665mil)(3915mil,4865mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3981.088mil|Location2.X=3992.338mil|Location1.Y=4859.625mil|Location2.Y=4870.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3981.088mil|Location2.X=3992.338mil|Location1.Y=4859.625mil|Location2.Y=4870.875mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.583mil &lt; 10mil) Between Pad C1-2(3955mil,4865mil) on Multi-Layer And Track (3995mil,4665mil)(3995mil,4865mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.583mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5640.004mil|Location2.X=5651.254mil|Location1.Y=3120.159mil|Location2.Y=3131.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5640.004mil|Location2.X=5651.254mil|Location1.Y=3120.159mil|Location2.Y=3131.409mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.569mil &lt; 10mil) Between Pad C3-1(5660mil,3160mil) on Multi-Layer And Track (5510mil,3120mil)(5660mil,3120mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.569mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5634.484mil|Location2.X=5645.734mil|Location1.Y=3187.034mil|Location2.Y=3198.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5634.484mil|Location2.X=5645.734mil|Location1.Y=3187.034mil|Location2.Y=3198.284mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.682mil &lt; 10mil) Between Pad C3-1(5660mil,3160mil) on Multi-Layer And Track (5510mil,3200mil)(5660mil,3200mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5622.011mil|Location2.X=5633.261mil|Location1.Y=3154.144mil|Location2.Y=3165.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5622.011mil|Location2.X=5633.261mil|Location1.Y=3154.144mil|Location2.Y=3165.394mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.278mil &lt; 10mil) Between Pad C3-1(5660mil,3160mil) on Multi-Layer And Track (5600mil,3160mil)(5620mil,3160mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.278mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5478.176mil|Location2.X=5485.843mil|Location1.Y=3151.148mil|Location2.Y=3158.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5478.176mil|Location2.X=5485.843mil|Location1.Y=3151.148mil|Location2.Y=3158.814mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad C3-2(5510mil,3160mil) on Multi-Layer And Text "R9" (5512mil,3095mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5499.906mil|Location2.X=5511.156mil|Location1.Y=3118.31mil|Location2.Y=3129.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5499.906mil|Location2.X=5511.156mil|Location1.Y=3118.31mil|Location2.Y=3129.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.91mil &lt; 10mil) Between Pad C3-2(5510mil,3160mil) on Multi-Layer And Track (5510mil,3120mil)(5660mil,3120mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.91mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5497.686mil|Location2.X=5508.936mil|Location1.Y=3190.157mil|Location2.Y=3201.407mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5497.686mil|Location2.X=5508.936mil|Location1.Y=3190.157mil|Location2.Y=3201.407mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.816mil &lt; 10mil) Between Pad C3-2(5510mil,3160mil) on Multi-Layer And Track (5510mil,3200mil)(5660mil,3200mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.816mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4455.262mil|Location2.X=4466.512mil|Location1.Y=4812.54mil|Location2.Y=4823.79mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4455.262mil|Location2.X=4466.512mil|Location1.Y=4812.54mil|Location2.Y=4823.79mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.955mil &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4445mil,4845mil)(4465mil,4825mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.955mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4451.167mil|Location2.X=4458.833mil|Location1.Y=4741.167mil|Location2.Y=4748.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4451.167mil|Location2.X=4458.833mil|Location1.Y=4741.167mil|Location2.Y=4748.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4455mil,4745mil)(4455mil,4815mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4451.167mil|Location2.X=4458.833mil|Location1.Y=4741.167mil|Location2.Y=4748.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4451.167mil|Location2.X=4458.833mil|Location1.Y=4741.167mil|Location2.Y=4748.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4455mil,4745mil)(4475mil,4725mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4452.14mil|Location2.X=4459.806mil|Location1.Y=4807.287mil|Location2.Y=4814.953mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4452.14mil|Location2.X=4459.806mil|Location1.Y=4807.287mil|Location2.Y=4814.953mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4455mil,4815mil)(4465mil,4825mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4476.284mil|Location2.X=4483.951mil|Location1.Y=4721.167mil|Location2.Y=4728.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4476.284mil|Location2.X=4483.951mil|Location1.Y=4721.167mil|Location2.Y=4728.833mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4475mil,4725mil)(4555mil,4725mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4540.752mil|Location2.X=4552.002mil|Location1.Y=4719.417mil|Location2.Y=4730.667mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4540.752mil|Location2.X=4552.002mil|Location1.Y=4719.417mil|Location2.Y=4730.667mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.247mil &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4555mil,4725mil)(4575mil,4745mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.247mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4570.232mil|Location2.X=4577.899mil|Location1.Y=4807.442mil|Location2.Y=4815.108mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4570.232mil|Location2.X=4577.899mil|Location1.Y=4807.442mil|Location2.Y=4815.108mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4565mil,4825mil)(4575mil,4815mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4563.488mil|Location2.X=4574.738mil|Location1.Y=4812.54mil|Location2.Y=4823.79mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4563.488mil|Location2.X=4574.738mil|Location1.Y=4812.54mil|Location2.Y=4823.79mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.955mil &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4565mil,4825mil)(4585mil,4845mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.955mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4571.167mil|Location2.X=4578.833mil|Location1.Y=4806.172mil|Location2.Y=4813.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4571.167mil|Location2.X=4578.833mil|Location1.Y=4806.172mil|Location2.Y=4813.838mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad IC1-0(4515mil,4765mil) on Multi-Layer And Track (4575mil,4745mil)(4575mil,4815mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7199.167mil|Location2.X=7206.833mil|Location1.Y=2945.419mil|Location2.Y=2953.085mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7199.167mil|Location2.X=7206.833mil|Location1.Y=2945.419mil|Location2.Y=2953.085mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad J2-1(7150mil,2965mil) on Multi-Layer And Track (7203mil,2949.252mil)(7284mil,2949.252mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7199.167mil|Location2.X=7206.833mil|Location1.Y=2976.915mil|Location2.Y=2984.581mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7199.167mil|Location2.X=7206.833mil|Location1.Y=2976.915mil|Location2.Y=2984.581mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad J2-1(7150mil,2965mil) on Multi-Layer And Track (7203mil,2980.748mil)(7284mil,2980.748mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7193.825mil|Location2.X=7205.075mil|Location1.Y=2643.734mil|Location2.Y=2654.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7193.825mil|Location2.X=7205.075mil|Location1.Y=2643.734mil|Location2.Y=2654.984mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.102mil &lt; 10mil) Between Pad J2-2(7150mil,2665mil) on Multi-Layer And Track (7203mil,2649.252mil)(7284mil,2649.252mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [3.102mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7194.301mil|Location2.X=7205.551mil|Location1.Y=2675.216mil|Location2.Y=2686.466mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7194.301mil|Location2.X=7205.551mil|Location1.Y=2675.216mil|Location2.Y=2686.466mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.151mil &lt; 10mil) Between Pad J2-2(7150mil,2665mil) on Multi-Layer And Track (7203mil,2680.748mil)(7284mil,2680.748mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [2.151mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2958.167mil|Location2.X=2965.833mil|Location1.Y=2305.419mil|Location2.Y=2313.085mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2958.167mil|Location2.X=2965.833mil|Location1.Y=2305.419mil|Location2.Y=2313.085mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad J3-1(3015mil,2325mil) on Multi-Layer And Track (2881mil,2309.252mil)(2962mil,2309.252mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2958.167mil|Location2.X=2965.833mil|Location1.Y=2336.915mil|Location2.Y=2344.581mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2958.167mil|Location2.X=2965.833mil|Location1.Y=2336.915mil|Location2.Y=2344.581mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad J3-1(3015mil,2325mil) on Multi-Layer And Track (2881mil,2340.748mil)(2962mil,2340.748mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2959.449mil|Location2.X=2970.699mil|Location1.Y=2603.534mil|Location2.Y=2614.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2959.449mil|Location2.X=2970.699mil|Location1.Y=2603.534mil|Location2.Y=2614.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.151mil &lt; 10mil) Between Pad J3-2(3015mil,2625mil) on Multi-Layer And Track (2881mil,2609.252mil)(2962mil,2609.252mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [2.151mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2959.925mil|Location2.X=2971.175mil|Location1.Y=2635.016mil|Location2.Y=2646.266mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2959.925mil|Location2.X=2971.175mil|Location1.Y=2635.016mil|Location2.Y=2646.266mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.102mil &lt; 10mil) Between Pad J3-2(3015mil,2625mil) on Multi-Layer And Track (2881mil,2640.748mil)(2962mil,2640.748mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [3.102mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2959.449mil|Location2.X=2970.699mil|Location1.Y=2903.534mil|Location2.Y=2914.784mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2959.449mil|Location2.X=2970.699mil|Location1.Y=2903.534mil|Location2.Y=2914.784mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.151mil &lt; 10mil) Between Pad J3-3(3015mil,2925mil) on Multi-Layer And Track (2881mil,2909.252mil)(2962mil,2909.252mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [2.151mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2959.925mil|Location2.X=2971.175mil|Location1.Y=2935.016mil|Location2.Y=2946.266mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2959.925mil|Location2.X=2971.175mil|Location1.Y=2935.016mil|Location2.Y=2946.266mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.102mil &lt; 10mil) Between Pad J3-3(3015mil,2925mil) on Multi-Layer And Track (2881mil,2940.748mil)(2962mil,2940.748mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [3.102mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5453.125mil|Location2.X=5464.375mil|Location1.Y=4268.375mil|Location2.Y=4279.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5453.125mil|Location2.X=5464.375mil|Location1.Y=4268.375mil|Location2.Y=4279.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.5mil &lt; 10mil) Between Pad LED1-1(5510mil,4265mil) on Multi-Layer And Track (5426mil,4274mil)(5454mil,4274mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [2.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5863.125mil|Location2.X=5874.375mil|Location1.Y=4268.375mil|Location2.Y=4279.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5863.125mil|Location2.X=5874.375mil|Location1.Y=4268.375mil|Location2.Y=4279.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.5mil &lt; 10mil) Between Pad LED2-1(5920mil,4265mil) on Multi-Layer And Track (5836mil,4274mil)(5864mil,4274mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [2.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6195.125mil|Location2.X=6206.375mil|Location1.Y=3028.375mil|Location2.Y=3039.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6195.125mil|Location2.X=6206.375mil|Location1.Y=3028.375mil|Location2.Y=3039.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Pad LED3-1(6150mil,3035mil) on Multi-Layer And Track (6205mil,3034mil)(6233mil,3034mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3688.925mil|Location2.X=3700.175mil|Location1.Y=2021.322mil|Location2.Y=2032.572mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3688.925mil|Location2.X=3700.175mil|Location1.Y=2021.322mil|Location2.Y=2032.572mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.1mil &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3690mil,1990mil)(3690mil,2070mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.1mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3691.287mil|Location2.X=3698.953mil|Location1.Y=1981.047mil|Location2.Y=1988.714mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3691.287mil|Location2.X=3698.953mil|Location1.Y=1981.047mil|Location2.Y=1988.714mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3690mil,1990mil)(3710mil,1970mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3675.656mil|Location2.X=3686.906mil|Location1.Y=2064.638mil|Location2.Y=2075.888mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3675.656mil|Location2.X=3686.906mil|Location1.Y=2064.638mil|Location2.Y=2075.888mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.446mil &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3690mil,2070mil)(3710mil,2090mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.446mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.828mil|Location2.X=3708.078mil|Location1.Y=1964.091mil|Location2.Y=1975.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.828mil|Location2.X=3708.078mil|Location1.Y=1964.091mil|Location2.Y=1975.341mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.104mil &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3710mil,1970mil)(3780mil,1970mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.104mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.751mil|Location2.X=3708.001mil|Location1.Y=2084.828mil|Location2.Y=2096.078mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.751mil|Location2.X=3708.001mil|Location1.Y=2084.828mil|Location2.Y=2096.078mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.276mil &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3710mil,2090mil)(3780mil,2090mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.276mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3766.683mil|Location2.X=3777.933mil|Location1.Y=1963.922mil|Location2.Y=1975.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3766.683mil|Location2.X=3777.933mil|Location1.Y=1963.922mil|Location2.Y=1975.172mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.41mil &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3780mil,1970mil)(3790mil,1980mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.41mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3785.232mil|Location2.X=3792.899mil|Location1.Y=2072.442mil|Location2.Y=2080.108mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3785.232mil|Location2.X=3792.899mil|Location1.Y=2072.442mil|Location2.Y=2080.108mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3780mil,2090mil)(3790mil,2080mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3785.232mil|Location2.X=3792.899mil|Location1.Y=1979.892mil|Location2.Y=1987.558mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3785.232mil|Location2.X=3792.899mil|Location1.Y=1979.892mil|Location2.Y=1987.558mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3790mil,1980mil)(3810mil,1960mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3785.232mil|Location2.X=3792.899mil|Location1.Y=2072.442mil|Location2.Y=2080.108mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3785.232mil|Location2.X=3792.899mil|Location1.Y=2072.442mil|Location2.Y=2080.108mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Q1-0(3730mil,2030mil) on Multi-Layer And Track (3790mil,2080mil)(3810mil,2100mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3683.925mil|Location2.X=3695.175mil|Location1.Y=3281.322mil|Location2.Y=3292.572mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3683.925mil|Location2.X=3695.175mil|Location1.Y=3281.322mil|Location2.Y=3292.572mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.1mil &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3685mil,3250mil)(3685mil,3330mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.1mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3686.287mil|Location2.X=3693.953mil|Location1.Y=3241.047mil|Location2.Y=3248.713mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3686.287mil|Location2.X=3693.953mil|Location1.Y=3241.047mil|Location2.Y=3248.713mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3685mil,3250mil)(3705mil,3230mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3670.656mil|Location2.X=3681.906mil|Location1.Y=3324.638mil|Location2.Y=3335.888mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3670.656mil|Location2.X=3681.906mil|Location1.Y=3324.638mil|Location2.Y=3335.888mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.446mil &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3685mil,3330mil)(3705mil,3350mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.446mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3691.828mil|Location2.X=3703.078mil|Location1.Y=3224.091mil|Location2.Y=3235.341mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3691.828mil|Location2.X=3703.078mil|Location1.Y=3224.091mil|Location2.Y=3235.341mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.104mil &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3705mil,3230mil)(3775mil,3230mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.104mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3691.751mil|Location2.X=3703.001mil|Location1.Y=3344.828mil|Location2.Y=3356.078mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3691.751mil|Location2.X=3703.001mil|Location1.Y=3344.828mil|Location2.Y=3356.078mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.276mil &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3705mil,3350mil)(3775mil,3350mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.276mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3761.683mil|Location2.X=3772.933mil|Location1.Y=3223.922mil|Location2.Y=3235.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3761.683mil|Location2.X=3772.933mil|Location1.Y=3223.922mil|Location2.Y=3235.172mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.41mil &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3775mil,3230mil)(3785mil,3240mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.41mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3780.232mil|Location2.X=3787.899mil|Location1.Y=3332.442mil|Location2.Y=3340.108mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3780.232mil|Location2.X=3787.899mil|Location1.Y=3332.442mil|Location2.Y=3340.108mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3775mil,3350mil)(3785mil,3340mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3780.232mil|Location2.X=3787.899mil|Location1.Y=3239.892mil|Location2.Y=3247.558mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3780.232mil|Location2.X=3787.899mil|Location1.Y=3239.892mil|Location2.Y=3247.558mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3785mil,3240mil)(3805mil,3220mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3780.232mil|Location2.X=3787.899mil|Location1.Y=3332.442mil|Location2.Y=3340.108mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3780.232mil|Location2.X=3787.899mil|Location1.Y=3332.442mil|Location2.Y=3340.108mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 10mil) Between Pad Q2-0(3725mil,3290mil) on Multi-Layer And Track (3785mil,3340mil)(3805mil,3360mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4938.038mil|Location2.X=4949.288mil|Location1.Y=4219.123mil|Location2.Y=4230.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4938.038mil|Location2.X=4949.288mil|Location1.Y=4219.123mil|Location2.Y=4230.373mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R1-1(4945mil,4184.999mil) on Multi-Layer And Track (4945mil,4232.999mil)(4945mil,4267.999mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4938.038mil|Location2.X=4949.288mil|Location1.Y=4489.626mil|Location2.Y=4500.876mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4938.038mil|Location2.X=4949.288mil|Location1.Y=4489.626mil|Location2.Y=4500.876mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R1-2(4945mil,4534.999mil) on Multi-Layer And Track (4945mil,4452.999mil)(4945mil,4486.999mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5503.038mil|Location2.X=5514.288mil|Location1.Y=4829.626mil|Location2.Y=4840.876mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5503.038mil|Location2.X=5514.288mil|Location1.Y=4829.626mil|Location2.Y=4840.876mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R2-1(5510mil,4875mil) on Multi-Layer And Track (5510mil,4792mil)(5510mil,4827mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5503.038mil|Location2.X=5514.288mil|Location1.Y=4559.124mil|Location2.Y=4570.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5503.038mil|Location2.X=5514.288mil|Location1.Y=4559.124mil|Location2.Y=4570.374mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R2-2(5510mil,4525mil) on Multi-Layer And Track (5510mil,4573mil)(5510mil,4607mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5913.038mil|Location2.X=5924.288mil|Location1.Y=4829.626mil|Location2.Y=4840.876mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5913.038mil|Location2.X=5924.288mil|Location1.Y=4829.626mil|Location2.Y=4840.876mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R3-1(5920mil,4875mil) on Multi-Layer And Track (5920mil,4792mil)(5920mil,4827mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5913.038mil|Location2.X=5924.288mil|Location1.Y=4559.124mil|Location2.Y=4570.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5913.038mil|Location2.X=5924.288mil|Location1.Y=4559.124mil|Location2.Y=4570.374mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R3-2(5920mil,4525mil) on Multi-Layer And Track (5920mil,4573mil)(5920mil,4607mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4299.005mil|Location2.X=4310.255mil|Location1.Y=4134.375mil|Location2.Y=4145.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4299.005mil|Location2.X=4310.255mil|Location1.Y=4134.375mil|Location2.Y=4145.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.739mil &lt; 10mil) Between Pad R4-1(4265mil,4140mil) on Multi-Layer And Track (4313mil,4140mil)(4348mil,4140mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.739mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4569.674mil|Location2.X=4580.924mil|Location1.Y=4134.124mil|Location2.Y=4145.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4569.674mil|Location2.X=4580.924mil|Location1.Y=4134.124mil|Location2.Y=4145.374mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.606mil &lt; 10mil) Between Pad R4-2(4615mil,4140mil) on Multi-Layer And Track (4533mil,4140mil)(4567mil,4140mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.606mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5574.005mil|Location2.X=5585.255mil|Location1.Y=2489.375mil|Location2.Y=2500.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5574.005mil|Location2.X=5585.255mil|Location1.Y=2489.375mil|Location2.Y=2500.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.739mil &lt; 10mil) Between Pad R5-1(5540mil,2495mil) on Multi-Layer And Track (5588mil,2495mil)(5623mil,2495mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.739mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5844.674mil|Location2.X=5855.924mil|Location1.Y=2489.124mil|Location2.Y=2500.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5844.674mil|Location2.X=5855.924mil|Location1.Y=2489.124mil|Location2.Y=2500.374mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.606mil &lt; 10mil) Between Pad R5-2(5890mil,2495mil) on Multi-Layer And Track (5808mil,2495mil)(5842mil,2495mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.606mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4284.133mil|Location2.X=4295.383mil|Location1.Y=2195.594mil|Location2.Y=2206.844mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4284.133mil|Location2.X=4295.383mil|Location1.Y=2195.594mil|Location2.Y=2206.844mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.49mil &lt; 10mil) Between Pad R6-1(4255mil,2200mil) on Multi-Layer And Track (4297mil,2201mil)(4338mil,2201mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.49mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4612.795mil|Location2.X=4624.045mil|Location1.Y=2195.151mil|Location2.Y=2206.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4612.795mil|Location2.X=4624.045mil|Location1.Y=2195.151mil|Location2.Y=2206.401mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.847mil &lt; 10mil) Between Pad R6-2(4655mil,2200mil) on Multi-Layer And Track (4573mil,2201mil)(4611mil,2201mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.847mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6143.038mil|Location2.X=6154.288mil|Location1.Y=2799.626mil|Location2.Y=2810.876mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6143.038mil|Location2.X=6154.288mil|Location1.Y=2799.626mil|Location2.Y=2810.876mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R7-1(6150mil,2845mil) on Multi-Layer And Track (6150mil,2762mil)(6150mil,2797mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6143.038mil|Location2.X=6154.288mil|Location1.Y=2529.124mil|Location2.Y=2540.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6143.038mil|Location2.X=6154.288mil|Location1.Y=2529.124mil|Location2.Y=2540.374mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R7-2(6150mil,2495mil) on Multi-Layer And Track (6150mil,2543mil)(6150mil,2577mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4284.133mil|Location2.X=4295.383mil|Location1.Y=3050.594mil|Location2.Y=3061.844mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4284.133mil|Location2.X=4295.383mil|Location1.Y=3050.594mil|Location2.Y=3061.844mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.49mil &lt; 10mil) Between Pad R8-1(4255mil,3055mil) on Multi-Layer And Track (4297mil,3056mil)(4338mil,3056mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.49mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4612.795mil|Location2.X=4624.045mil|Location1.Y=3050.151mil|Location2.Y=3061.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4612.795mil|Location2.X=4624.045mil|Location1.Y=3050.151mil|Location2.Y=3061.401mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.847mil &lt; 10mil) Between Pad R8-2(4655mil,3055mil) on Multi-Layer And Track (4573mil,3056mil)(4611mil,3056mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.847mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5468.038mil|Location2.X=5479.288mil|Location1.Y=2979.627mil|Location2.Y=2990.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5468.038mil|Location2.X=5479.288mil|Location1.Y=2979.627mil|Location2.Y=2990.877mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R9-1(5475mil,3025mil) on Multi-Layer And Track (5475mil,2942mil)(5475mil,2977mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5468.038mil|Location2.X=5479.288mil|Location1.Y=2709.124mil|Location2.Y=2720.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5468.038mil|Location2.X=5479.288mil|Location1.Y=2709.124mil|Location2.Y=2720.374mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.718mil &lt; 10mil) Between Pad R9-2(5475mil,2675mil) on Multi-Layer And Track (5475mil,2723mil)(5475mil,2757mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.718mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5335.125mil|Location2.X=5346.375mil|Location1.Y=3089.375mil|Location2.Y=3100.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5335.125mil|Location2.X=5346.375mil|Location1.Y=3089.375mil|Location2.Y=3100.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.5mil &lt; 10mil) Between Pad U1-1(5295mil,3125mil) on Multi-Layer And Track (5345mil,2475mil)(5345mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.5mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2715.103mil|Location2.Y=2726.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2715.103mil|Location2.Y=2726.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-10(4995mil,2725mil) on Multi-Layer And Track (4945mil,2475mil)(4945mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2815.103mil|Location2.Y=2826.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2815.103mil|Location2.Y=2826.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-11(4995mil,2825mil) on Multi-Layer And Track (4945mil,2475mil)(4945mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2915.103mil|Location2.Y=2926.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2915.103mil|Location2.Y=2926.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-12(4995mil,2925mil) on Multi-Layer And Track (4945mil,2475mil)(4945mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=3015.103mil|Location2.Y=3026.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=3015.103mil|Location2.Y=3026.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-13(4995mil,3025mil) on Multi-Layer And Track (4945mil,2475mil)(4945mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=3115.103mil|Location2.Y=3126.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=3115.103mil|Location2.Y=3126.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-14(4995mil,3125mil) on Multi-Layer And Track (4945mil,2475mil)(4945mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=3039.033mil|Location2.Y=3050.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=3039.033mil|Location2.Y=3050.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-2(5295mil,3025mil) on Multi-Layer And Track (5345mil,2475mil)(5345mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2939.033mil|Location2.Y=2950.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2939.033mil|Location2.Y=2950.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-3(5295mil,2925mil) on Multi-Layer And Track (5345mil,2475mil)(5345mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2839.033mil|Location2.Y=2850.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2839.033mil|Location2.Y=2850.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-4(5295mil,2825mil) on Multi-Layer And Track (5345mil,2475mil)(5345mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2739.033mil|Location2.Y=2750.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2739.033mil|Location2.Y=2750.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-5(5295mil,2725mil) on Multi-Layer And Track (5345mil,2475mil)(5345mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2639.033mil|Location2.Y=2650.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2639.033mil|Location2.Y=2650.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-6(5295mil,2625mil) on Multi-Layer And Track (5345mil,2475mil)(5345mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2539.033mil|Location2.Y=2550.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5331.468mil|Location2.X=5342.718mil|Location1.Y=2539.033mil|Location2.Y=2550.283mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.813mil &lt; 10mil) Between Pad U1-7(5295mil,2525mil) on Multi-Layer And Track (5345mil,2475mil)(5345mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [8.813mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2515.103mil|Location2.Y=2526.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2515.103mil|Location2.Y=2526.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-8(4995mil,2525mil) on Multi-Layer And Track (4945mil,2475mil)(4945mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2615.103mil|Location2.Y=2626.353mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4943.768mil|Location2.X=4955.018mil|Location1.Y=2615.103mil|Location2.Y=2626.353mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.786mil &lt; 10mil) Between Pad U1-9(4995mil,2625mil) on Multi-Layer And Track (4945mil,2475mil)(4945mil,3175mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [1.786mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4019.474mil|Location2.X=4030.724mil|Location1.Y=4109.517mil|Location2.Y=4120.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4019.474mil|Location2.X=4030.724mil|Location1.Y=4109.517mil|Location2.Y=4120.767mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.518mil &lt; 10mil) Between Pad VR1-1(4055mil,4140mil) on Multi-Layer And Track (3887mil,4110mil)(4024mil,4110mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [3.518mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4019.287mil|Location2.X=4030.537mil|Location1.Y=4158.831mil|Location2.Y=4170.081mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4019.287mil|Location2.X=4030.537mil|Location1.Y=4158.831mil|Location2.Y=4170.081mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.86mil &lt; 10mil) Between Pad VR1-1(4055mil,4140mil) on Multi-Layer And Track (3888mil,4169mil)(4023mil,4169mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [2.86mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4031.94mil|Location2.X=4043.19mil|Location1.Y=4097.515mil|Location2.Y=4108.765mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4031.94mil|Location2.X=4043.19mil|Location1.Y=4097.515mil|Location2.Y=4108.765mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.28mil &lt; 10mil) Between Pad VR1-1(4055mil,4140mil) on Multi-Layer And Track (4033mil,4096mil)(4084mil,4096mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.28mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4079.32mil|Location2.X=4090.57mil|Location1.Y=4159.723mil|Location2.Y=4170.973mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4079.32mil|Location2.X=4090.57mil|Location1.Y=4159.723mil|Location2.Y=4170.973mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.498mil &lt; 10mil) Between Pad VR1-1(4055mil,4140mil) on Multi-Layer And Track (4086mil,4171mil)(4086mil,4346mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.498mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.94mil|Location2.X=3943.19mil|Location1.Y=4372.235mil|Location2.Y=4383.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.94mil|Location2.X=3943.19mil|Location1.Y=4372.235mil|Location2.Y=4383.485mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.28mil &lt; 10mil) Between Pad VR1-2(3955mil,4340mil) on Multi-Layer And Track (3913.5mil,4386mil)(4001mil,4386mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.28mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3831.94mil|Location2.X=3843.19mil|Location1.Y=4097.515mil|Location2.Y=4108.765mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3831.94mil|Location2.X=3843.19mil|Location1.Y=4097.515mil|Location2.Y=4108.765mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.28mil &lt; 10mil) Between Pad VR1-3(3855mil,4140mil) on Multi-Layer And Track (3824mil,4096mil)(3875mil,4096mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.28mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3819.701mil|Location2.X=3830.951mil|Location1.Y=4160.196mil|Location2.Y=4171.446mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3819.701mil|Location2.X=3830.951mil|Location1.Y=4160.196mil|Location2.Y=4171.446mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.375mil &lt; 10mil) Between Pad VR1-3(3855mil,4140mil) on Multi-Layer And Track (3825mil,4172mil)(3825mil,4347mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [5.375mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3873.293mil|Location2.X=3884.543mil|Location1.Y=4103.899mil|Location2.Y=4115.149mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3873.293mil|Location2.X=3884.543mil|Location1.Y=4103.899mil|Location2.Y=4115.149mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.193mil &lt; 10mil) Between Pad VR1-3(3855mil,4140mil) on Multi-Layer And Track (3887mil,4110mil)(4024mil,4110mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.193mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3879.751mil|Location2.X=3891.001mil|Location1.Y=4158.937mil|Location2.Y=4170.187mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3879.751mil|Location2.X=3891.001mil|Location1.Y=4158.937mil|Location2.Y=4170.187mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.311mil &lt; 10mil) Between Pad VR1-3(3855mil,4140mil) on Multi-Layer And Track (3888mil,4169mil)(4023mil,4169mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [3.311mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.43mil|Location2.X=5635.68mil|Location1.Y=2989.026mil|Location2.Y=3000.276mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5624.43mil|Location2.X=5635.68mil|Location1.Y=2989.026mil|Location2.Y=3000.276mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.498mil &lt; 10mil) Between Pad VR2-1(5660mil,3020mil) on Multi-Layer And Track (5629mil,2814mil)(5629mil,2989mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [4.498mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5636.94mil|Location2.X=5648.19mil|Location1.Y=3051.235mil|Location2.Y=3062.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5636.94mil|Location2.X=5648.19mil|Location1.Y=3051.235mil|Location2.Y=3062.485mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.28mil &lt; 10mil) Between Pad VR2-1(5660mil,3020mil) on Multi-Layer And Track (5631mil,3064mil)(5682mil,3064mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.28mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5684.275mil|Location2.X=5695.525mil|Location1.Y=3039.232mil|Location2.Y=3050.482mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5684.275mil|Location2.X=5695.525mil|Location1.Y=3039.232mil|Location2.Y=3050.482mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.518mil &lt; 10mil) Between Pad VR2-1(5660mil,3020mil) on Multi-Layer And Track (5691mil,3050mil)(5828mil,3050mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [3.518mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5678.263mil|Location2.X=5689.513mil|Location1.Y=2984.897mil|Location2.Y=2996.147mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5678.263mil|Location2.X=5689.513mil|Location1.Y=2984.897mil|Location2.Y=2996.147mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.252mil &lt; 10mil) Between Pad VR2-1(5660mil,3020mil) on Multi-Layer And Track (5692mil,2991mil)(5827mil,2991mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.252mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5736.94mil|Location2.X=5748.19mil|Location1.Y=2776.515mil|Location2.Y=2787.765mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5736.94mil|Location2.X=5748.19mil|Location1.Y=2776.515mil|Location2.Y=2787.765mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.28mil &lt; 10mil) Between Pad VR2-2(5760mil,2820mil) on Multi-Layer And Track (5714mil,2774mil)(5801.5mil,2774mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.28mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5824.201mil|Location2.X=5835.451mil|Location1.Y=3039.297mil|Location2.Y=3050.547mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5824.201mil|Location2.X=5835.451mil|Location1.Y=3039.297mil|Location2.Y=3050.547mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.792mil &lt; 10mil) Between Pad VR2-3(5860mil,3020mil) on Multi-Layer And Track (5691mil,3050mil)(5828mil,3050mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [3.792mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5823.999mil|Location2.X=5835.249mil|Location1.Y=2989.812mil|Location2.Y=3001.062mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5823.999mil|Location2.X=5835.249mil|Location1.Y=2989.812mil|Location2.Y=3001.062mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.311mil &lt; 10mil) Between Pad VR2-3(5860mil,3020mil) on Multi-Layer And Track (5692mil,2991mil)(5827mil,2991mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [3.311mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5836.94mil|Location2.X=5848.19mil|Location1.Y=3051.235mil|Location2.Y=3062.485mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5836.94mil|Location2.X=5848.19mil|Location1.Y=3051.235mil|Location2.Y=3062.485mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.28mil &lt; 10mil) Between Pad VR2-3(5860mil,3020mil) on Multi-Layer And Track (5840mil,3064mil)(5891mil,3064mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [7.28mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5876.342mil|Location2.X=5887.592mil|Location1.Y=2981.155mil|Location2.Y=2992.405mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5876.342mil|Location2.X=5887.592mil|Location1.Y=2981.155mil|Location2.Y=2992.405mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.065mil &lt; 10mil) Between Pad VR2-3(5860mil,3020mil) on Multi-Layer And Track (5890mil,2813mil)(5890mil,2988mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [9.065mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDSXSWRDU4QRIGH1PHZCWTVO1Q4G4QTBD10AIOIDIMOB42RD3PSDHB"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2920.881mil|Location2.X=2932.131mil|Location1.Y=2999.77mil|Location2.Y=3011.02mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2920.881mil|Location2.X=2932.131mil|Location1.Y=2999.77mil|Location2.Y=3011.02mil|Absolute=True">Silk To Silk Clearance Constraint: (1.597mil &lt; 10mil) Between Arc (2865mil,2925mil) on Bottom Overlay And Text "J3" (3020mil,3010mil) on Bottom Overlay Silk Text to Silk Clearance [1.597mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5506.417mil|Location2.X=5514.083mil|Location1.Y=3116.167mil|Location2.Y=3123.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5506.417mil|Location2.X=5514.083mil|Location1.Y=3116.167mil|Location2.Y=3123.833mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Arc (5510mil,3160mil) on Bottom Overlay And Text "R9" (5512mil,3095mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6182.811mil|Location2.X=6190.477mil|Location1.Y=2972.253mil|Location2.Y=2979.92mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6182.811mil|Location2.X=6190.477mil|Location1.Y=2972.253mil|Location2.Y=2979.92mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Arc (6150mil,3090mil) on Bottom Overlay And Text "R7" (6187mil,2915mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5433.167mil|Location2.X=5440.833mil|Location1.Y=3155.162mil|Location2.Y=3162.829mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5433.167mil|Location2.X=5440.833mil|Location1.Y=3155.162mil|Location2.Y=3162.829mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "C3" (5437mil,3193mil) on Bottom Overlay And Text "R9" (5512mil,3095mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2976.18mil|Location2.X=2983.846mil|Location1.Y=3070.157mil|Location2.Y=3077.824mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2976.18mil|Location2.X=2983.846mil|Location1.Y=3070.157mil|Location2.Y=3077.824mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "J3" (3020mil,3010mil) on Bottom Overlay And Track (2738.622mil,3075mil)(2991.378mil,3075mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2987.545mil|Location2.X=2995.211mil|Location1.Y=3066.147mil|Location2.Y=3073.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2987.545mil|Location2.X=2995.211mil|Location1.Y=3066.147mil|Location2.Y=3073.814mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "J3" (3020mil,3010mil) on Bottom Overlay And Track (2991.378mil,3051.378mil)(2991.378mil,3075mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2988.36mil|Location2.X=2996.027mil|Location1.Y=3047.545mil|Location2.Y=3055.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2988.36mil|Location2.X=2996.027mil|Location1.Y=3047.545mil|Location2.Y=3055.211mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "J3" (3020mil,3010mil) on Bottom Overlay And Track (2991.378mil,3051.378mil)(3038.622mil,3051.378mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5508.167mil|Location2.X=5515.833mil|Location1.Y=3116.167mil|Location2.Y=3123.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5508.167mil|Location2.X=5515.833mil|Location1.Y=3116.167mil|Location2.Y=3123.833mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 10mil) Between Text "R9" (5512mil,3095mil) on Bottom Overlay And Track (5510mil,3120mil)(5660mil,3120mil) on Bottom Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID3M5OMOCRLU2RMTJY25MTXFMSQB2LDKEB45DPIMEFN2LFEMJRB54L"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3499mil|Location2.X=3501mil|Location1.Y=2029mil|Location2.Y=2031mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3499mil|Location2.X=3501mil|Location1.Y=2029mil|Location2.Y=2031mil|Absolute=True">Height Constraint: Component Q1-IRFZ44 (3500mil,2030mil) on Bottom Layer Actual Height = 1205.512mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3494mil|Location2.X=3496mil|Location1.Y=3289mil|Location2.Y=3291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Hoc_Phan_IUH\Khoa_luan_tot_nghiep\Altium\Solar_Power\File_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3494mil|Location2.X=3496mil|Location1.Y=3289mil|Location2.Y=3291mil|Absolute=True">Height Constraint: Component Q2-IRFZ44 (3495mil,3290mil) on Bottom Layer Actual Height = 1205.512mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

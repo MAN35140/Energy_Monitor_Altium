@@ -1,0 +1,23 @@
+Removed Pin From Net: NetName=GND Pin=C13-1
+Removed Pin From Net: NetName=PB1 Pin=C13-2
+Removed Pin From Net: NetName=PB5 Pin=C13-3
+Removed Pin From Net: NetName=PB4 Pin=C13-4
+Removed Pin From Net: NetName=PD2 Pin=C13-5
+Removed Pin From Net: NetName=PB3 Pin=C13-6
+Removed Pin From Net: NetName=PB2 Pin=C13-7
+Removed Pin From Net: NetName=VCC3.3 Pin=C13-8
+Removed Member From Class: ClassName=File_Nguyen_ly Member=C13
+Added Component: Designator=P?(Header 4x2)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "LatestRevisionDate"; Value = "17-Jul-2002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LatestRevisionNote"; Value = "Re-released for DXP Platform."; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Publisher"; Value = "Altium Limited"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=P?-1
+Added Pin To Net: NetName=VCC3.3 Pin=P?-2
+Added Pin To Net: NetName=PB1 Pin=P?-3
+Added Pin To Net: NetName=PB2 Pin=P?-4
+Added Pin To Net: NetName=PB5 Pin=P?-5
+Added Pin To Net: NetName=PB3 Pin=P?-6
+Added Pin To Net: NetName=PB4 Pin=P?-7
+Added Pin To Net: NetName=PD2 Pin=P?-8
+Added Member To Class: ClassName=File_Nguyen_ly Member=Component P? Header 4x2

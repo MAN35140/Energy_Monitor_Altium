@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=OSC2 Pin=X1-1
+Removed Pin From Net: NetName=OSC1 Pin=X1-2
+Added Component: Designator=X1(XT2)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Value"; Value = "4Mhz"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=OSC2 Pin=X1-1
+Added Pin To Net: NetName=OSC1 Pin=X1-2

@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=+12 Pin=J2-1
+Removed Pin From Net: NetName=GND Pin=J2-2
+Removed Pin From Net: NetName=NetJ3_1 Pin=Q1-2
+Removed Pin From Net: NetName=NetJ3_3 Pin=Q2-2
+Added Pin To Net: NetName=GND Pin=J2-1
+Added Pin To Net: NetName=+12 Pin=J2-2
+Added Pin To Net: NetName=NetJ3_3 Pin=Q1-2
+Added Pin To Net: NetName=NetJ3_1 Pin=Q2-2
+Added Room: Name=File_Nguyen_Ly

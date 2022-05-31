@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=GND Pin=J1-1
+Removed Pin From Net: NetName=NetD1_1 Pin=J1-2
+Added Pin To Net: NetName=NetD1_1 Pin=J1-1
+Added Pin To Net: NetName=GND Pin=J1-2
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component D3 Diode 1N5408
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component LED1 LED
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component LED2 LED
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component Q1 IRF9540
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component Q2 IRF9540
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component R2 2k
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component R3 2k
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component R8 220
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component R9 390k
+Added Member To Class: ClassName=File_Nguyen_Ly Member=Component VR2 100K
+Added Room: Name=File_Nguyen_Ly
